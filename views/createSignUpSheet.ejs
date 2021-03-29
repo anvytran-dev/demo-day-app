@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <title>The Sign Up Cube</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <section class="createSignUpSheet">
+    <% if (user.local.email) { %>
+      <form action="/filledOutSignUpSheet" method ="POST">
+          <h1>Create Sign Up Sheet</h1>
+        <div class="item">
+          <p>Name</p>
+            <input type="text" name="name" placeholder="Name"/>
+        </div>
+        <div class="item">
+          <p>Phone</p>
+          <input type="text" name="phone" placeholder="### ### ####"/>
+        </div>
+        <div class="item">
+          <p>Event Title</p>
+          <input type="text" name="eventTitle" placeholder=""/>
+        </div>
+        <div class="item">
+          <p>Event Start Date</p>
+          <input type="date" name="startDate" required/>
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="item">
+          <p>Event End Date</p>
+          <input type="date" name="endDate" required/>
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="item">
+          <p>Event Description</p>
+          <textarea rows="3" name ="eventDescription"></textarea>
+        </div>
+        <div class ="item">
+          <input type="text" value="<%= user.local.email %>" name="name" placeholder="email" class ="userEmail">
+        </div>
+        <div class="btn-block">
+          <button type="submit">Send</button>
+        </div>
+
+      </form>
+    <% } %>
+  </section>
+
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

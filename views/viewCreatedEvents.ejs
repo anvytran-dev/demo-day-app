@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <title>The Sign Up Cube</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <% if (user.local.email) { %>
+
+    <section class="" id ="">
+        
+      <ul class="eventUl">
+        <% for(var i=0; i<signUpSheet.length; i++) {%>
+          
+          <li class="liItems" data-noteId ='<%= signUpSheet[i]._id %>'>
+
+            <span>Event: '<%= signUpSheet[i].eventTitle %>' </span>
+            <span>Start Date: '<%= signUpSheet[i].eventStartDate %>'</span>
+            <span>End Date: '<%= signUpSheet[i].eventEndDate %>' </span>
+            <span>Event Description: '<%= signUpSheet[i].eventDescription %>' </span>
+
+            
+            <section class ="secAddTimeSlots">
+              <button>Add Dates/Time Slots</button>
+            </section>
+
+            <section class = "secIcons">
+
+              <span><i class="fa fa-edit"></i></span>
+              
+              <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+            
+            </section>
+
+          </li>
+        <% } %>
+        </ul>
+
+           
+          </section>
+          <% } %>
+
+
+</div>
+</div>
+</body>
+</html>
