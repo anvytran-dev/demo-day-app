@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <title>The Sign Up Cube</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <section class="eventDetails">
+
+
+        <h2><%= signUpResults.eventTitle %></h2>
+
+  </section>
+
+
+<section class = "displayTimeSlots">
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Location/Activity Description</th>
+        <th scope="col">Volunteers Needed</th>
+        <th scope="col">Volunteers Signed Up</th>
+        <th scope="col">Sign Up</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for(var i =0; i <timeSlotResults.length; i++) { %>
+            
+        <tr>
+            <!-- <th scope="row"></th> -->
+            <td><%= timeSlotResults[i].date %></td>
+            <td><%= timeSlotResults[i].startTime %></td>
+            <td><%= timeSlotResults[i].endTime %></td>
+            <td><%= timeSlotResults[i].activityDescription %></td>
+            <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
+            <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
+            <td><button class ="buttonSignUp" data-eventId="<%= timeSlotResults[i].eventId %>" data-slotId ="<%= timeSlotResults[i]._id %>">Sign Up</button></td>
+        </tr>
+
+        <% } %>
+    </tbody>
+  </table>
+  
+  
+ 
+</section>
+
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

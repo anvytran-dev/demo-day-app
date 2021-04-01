@@ -15,7 +15,7 @@
       <ul class="eventUl">
         <% for(var i=0; i<signUpSheet.length; i++) {%>
           
-          <li class="liItems" data-noteId ='<%= signUpSheet[i]._id %>'>
+          <li class="liItems" data-eventId ='<%= signUpSheet[i]._id %>'>
 
             <span>Event: '<%= signUpSheet[i].eventTitle %>' </span>
             <span>Start Date: '<%= signUpSheet[i].eventStartDate %>'</span>
@@ -24,7 +24,7 @@
 
             
             <section class ="secAddTimeSlots">
-              <button>Add Dates/Time Slots</button>
+              <button class ="buttonAddSlotsPage">Add Dates/Time Slots</button>
             </section>
 
             <section class = "secIcons">
@@ -44,7 +44,8 @@
           <% } %>
 
 
-</div>
-</div>
-</body>
+    </div>
+    </div>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
 </html>

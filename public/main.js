@@ -1,37 +1,50 @@
-var thumbUp = document.getElementsByClassName("fa-edit");
-var trash = document.getElementsByClassName("fa-trash");
+//ADD EVENT LISTENERS ON THE 'ADD DATES/TIME SLOTS' BUTTONS. After the button is clicked, it directs the user to the page where the selected event's time slots are. 
 
+var addTimeSlot = document.querySelectorAll('.buttonAddSlotsPage');
 
+Array.from(addTimeSlot).forEach(function(element) {
+    console.log(addTimeSlot)
 
-Array.from(thumbUp).forEach(function(element) {
-      element.addEventListener('click', function(){
+    element.addEventListener('click', function() {
 
-        const noteId = this.parentNode.parentNode.parentNode.getAttribute('data-noteId')
+        const eventId = this.parentNode.parentNode.getAttribute('data-eventId')
 
-        console.log('noteId' + noteId);
+        window.location.href="/addTimeSlots?id=" + eventId
+    })
+}
+);
 
-        window.location.href="/editNote?noteId=" + noteId
+var editIcon = document.getElementsByClassName("fa-edit");
+var trashIcon = document.getElementsByClassName("fa-trash");
 
-        
-});
+//PUBLISH SIGN UP SHEET
 
-});
+var buttonPublishSignUpSheet = document.querySelector('.hi') 
 
-Array.from(trash).forEach(function(element) {
-      element.addEventListener('click', function(){
+console.log(buttonPublishSignUpSheet)
 
-        const noteId = this.parentNode.parentNode.parentNode.getAttribute('data-noteId')
+buttonPublishSignUpSheet.addEventListener('click', getPublicCreateSignUp)
 
-        fetch('messages', {
-          method: 'delete',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            '_id': noteId
-          })
-        }).then(function (response) {
-          window.location.reload()
-        })
-      });
-});
+function getPublicCreateSignUp() {
+
+    const eventId = this.getAttribute('data-eventId')
+    window.location.href="/publicSignUpSheet?id=" + eventId
+
+}
+
+//SIGN UP AS A VOLUNTEER
+
+var signUpButton = document.querySelectorAll('.buttonSignUp')
+
+Array.from(signUpButton).forEach(function(element) {
+    console.log(element)
+    element.addEventListener('click', signUpVolunteerSlot)
+
+    function signUpVolunteerSlot() {
+
+        const eventId = this.getAttribute('data-eventId')
+        const slotId = this.getAttribute('data-slotId')
+
+        window.location.href="/signUpForSlot?eventId=" + eventId + "?slotId=" + slotId
+    }
+})

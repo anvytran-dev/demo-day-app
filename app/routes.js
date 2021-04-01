@@ -41,6 +41,25 @@ module.exports = function(app, passport, db) {
       })
     });
 
+//GET 'addTimeSlots' PAGE
+//Research .findOne for efficiency + make it clear that we are looking for just one. 
+//Add 'isLoggedIn' as middleware when project is ready
+
+app.get('/addTimeSlots', isLoggedIn, function(req, res) {
+  db.collection('signUpSheet').findOne({_id: ObjectId(req.query.id)}, (err, eventDetails) => {
+
+    db.collection('timeSlots').find({eventId: req.query.id}).toArray((error, slots) => {
+      if (err) return console.log(err)
+      console.log(slots)
+      res.render('addTimeSlots.ejs', {
+        user : req.user,
+        eventDetails: eventDetails,
+        timeSlots: slots
+      })
+    })
+  })
+});
+
 //GET 'viewCreatedEvents' PAGE
 
     app.get('/viewCreatedEvents', isLoggedIn, function(req, res) {
@@ -52,6 +71,43 @@ module.exports = function(app, passport, db) {
         })
       })
     });
+
+//GET 'publicSignUpSheet'
+
+
+    app.get('/publicSignUpSheet', function(req, res) {
+
+      let findSignUp = db.collection('signUpSheet').findOne({_id: ObjectId(req.query.id)}) 
+
+      let timeSlot =  db.collection('timeSlots').find({eventId: req.query.id}).toArray()
+
+      Promise.all([findSignUp, timeSlot]).then((values) => {
+
+        const [findSignUpResults, timeSlotResults] = values;
+
+        console.log('Hi')
+        console.log(findSignUpResults)
+        console.log(timeSlotResults)
+
+        res.render('publicSignUpSheet.ejs', {
+          signUpResults: findSignUpResults,
+          timeSlotResults: timeSlotResults
+        })
+      }).catch((error) => {
+        console.log(error)
+      });
+
+
+    });
+
+//Get 'signUp' page
+
+    app.get('/signUpForSlot', function (req, res) {
+      
+    })
+ 
+
+
 
 //POST REQUESTS
 
@@ -74,6 +130,8 @@ module.exports = function(app, passport, db) {
 
 //SAVE INITIAL SIGN UP DETAILS TO DATABASE
 
+var ObjectId = require('mongodb').ObjectId;
+
     app.post('/filledOutSignUpSheet', (req, res) => {
       db.collection('signUpSheet').save(
 
@@ -84,13 +142,41 @@ module.exports = function(app, passport, db) {
         eventStartDate: req.body.startDate,
         eventEndDate: req.body.endDate,
         eventDescription: req.body.eventDescription,
-        email: req.user.local.email}, 
+        email: req.user.local.email
+      
+        }, 
         
         
         (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
-        res.redirect('/addTimeSlots')
+        console.log(result)
+        res.redirect('/addTimeSlots?' +'id='+ObjectId(result.ops[0]._id))
+
+      })
+    })
+
+    //SAVE TIME SLOT TO MONGODB
+
+    app.post('/saveTimeSlots', (req, res) => {
+      db.collection('timeSlots').save(
+
+        {
+        date: req.body.date,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime,
+        activityDescription: req.body.activityDescription,
+        numberVolunteersNeeded: req.body.numberVolunteersNeeded,
+        eventId: req.query.id,
+        email: req.user.local.email
+        }, 
+        
+        
+        (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        console.log(result)
+        res.redirect('/addTimeSlots?' +'id='+ObjectId(result.ops[0].eventId))
 
       })
     })
