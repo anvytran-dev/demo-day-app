@@ -1,3 +1,13 @@
 .fa-trash:before {
     content: "\f014";
   }
+
+  .secAddDatesAndTime{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .secAddTimeSlots{
+    width: 50%;
+  }
