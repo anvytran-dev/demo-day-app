@@ -10,6 +10,7 @@ var ObjectId = require('mongodb').ObjectId;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
+var figlet = require('figlet');
 
 const Moment = require('moment');
 const MomentRange = require('moment-range');

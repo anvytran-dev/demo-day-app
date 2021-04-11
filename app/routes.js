@@ -3,6 +3,8 @@ const Moment = require('moment');
 const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
 
+var figlet = require('figlet');
+
 module.exports = function (app, passport, db) {
 
   // normal routes ===============================================================
@@ -79,22 +81,29 @@ module.exports = function (app, passport, db) {
 
 
   app.get('/publicSignUpSheet', function (req, res) {
-
+    console.log('THIS IS REQUEST')
+    console.log(req)
     let findSignUp = db.collection('signUpSheet').findOne({ _id: ObjectId(req.query.id) })
 
     let timeSlot = db.collection('timeSlots').find({ eventId: req.query.id }).toArray()
 
-    Promise.all([findSignUp, timeSlot]).then((values) => {
+    let guestSignUp = db.collection('guestSignUp').find({}).toArray()
 
-      const [findSignUpResults, timeSlotResults] = values;
+    Promise.all([findSignUp, timeSlot, guestSignUp]).then((values) => {
+
+      const [findSignUpResults, timeSlotResults, guestSignUpResults] = values;
 
       console.log('Hi')
       console.log(findSignUpResults)
       console.log(timeSlotResults)
+      console.log(guestSignUpResults)
+      console.log(req.user)
 
       res.render('publicSignUpSheet.ejs', {
         signUpResults: findSignUpResults,
-        timeSlotResults: timeSlotResults
+        timeSlotResults: timeSlotResults,
+        guestSignUpResults: guestSignUpResults,
+        user: req.user,
       })
     }).catch((error) => {
       console.log(error)
@@ -185,6 +194,33 @@ module.exports = function (app, passport, db) {
       })
   })
 
+  //SAVE GUEST SIGN UP
+
+  app.post('/guestSignUp', (req, res) => {
+    console.log(req)
+    db.collection('guestSignUp').save(
+
+      {
+        name: req.body.guestName,
+        email: req.body.guestEmail,
+        phone: req.body.guestTel,
+        eventId: req.body.guestEventId,
+        slotId: req.body.guestSlotId,
+        recurringId: req.body.recurringId
+
+      },
+
+
+      (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        console.log(result)
+        res.redirect('/publicSignUpSheet?' + 'id=' + req.body.guestEventId)
+
+      })
+  })
+
+
 
   app.delete('/messages', (req, res) => {
     db.collection('messages').findOneAndDelete({ _id: ObjectId(req.body._id) }, (err, result) => {
@@ -199,7 +235,8 @@ module.exports = function (app, passport, db) {
 
   //SAVE RECURRING TIMESLOTS TO DATABASE
 
-  app.post('/addRecurringSlots', (req, res) => {
+  app.post('/addRecurringSlots', (req, res, next) => {
+
     db.collection('addRecurringSlots').save(
 
       {
@@ -216,12 +253,16 @@ module.exports = function (app, passport, db) {
       },
 
       (err, result) => {
+        if (err) {
+          next(err)
+          return
+        }
         const startDate = moment(req.body.startDate)
         const endDate = moment(req.body.endDate)
         let recurringDatesArray = []
         let documentsToLoad = []
 
-        let slot = moment(startDate).isoWeekday(req.body.recurringDay);
+        let slot = moment(startDate).isoWeekday(req.body.recurringDay);//ex. recurringDay === 'monday'
 
         if (slot.isBefore(startDate) === true) {
           slot.add(7, 'days')
@@ -249,18 +290,25 @@ module.exports = function (app, passport, db) {
             activityDescription: req.body.activityDescriptionRecurring,
             numberVolunteersNeeded: req.body.numberVolunteersNeededRecurring,
             eventId: req.query.id,
-            recurringId: result.ops[0]._id,
+            recurringId: ObjectId(result.ops[0]._id),
             email: req.user.local.email
           }
         ))
 
-        db.collection('timeSlots').insertMany(documentsToLoad)
+        db.collection('timeSlots').insertMany(documentsToLoad, (error) => {
 
-        if (err) return console.log(err)
-        console.log('saved to database')
+          if (error) {
+            next(error)
+            return
+          }
+
+          console.log('saved to database')
+          res.redirect('/addTimeSlots?' + 'id=' + ObjectId(result.ops[0].eventId))
+        })
+
         console.log(result)
 
-        res.redirect('/addTimeSlots?' + 'id=' + ObjectId(result.ops[0].eventId))
+
 
       })
   })
@@ -290,6 +338,12 @@ module.exports = function (app, passport, db) {
     failureFlash: true // allow flash messages
   }));
 
+  app.post('/loginSignUp', passport.authenticate('local-login', {
+    successRedirect: '/publicSignUpSheet', // redirect to the secure profile section
+    failureRedirect: '/login', // redirect back to the signup page if there is an error
+    failureFlash: true // allow flash messages
+  }));
+
   // SIGNUP =================================
   // show the signup form
   app.get('/signup', function (req, res) {
@@ -301,7 +355,14 @@ module.exports = function (app, passport, db) {
     successRedirect: '/profile', // redirect to the secure profile section
     failureRedirect: '/signup', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
-  }));
+
+
+
+  })
+  );
+
+
+
 
   // =============================================================================
   // UNLINK ACCOUNTS =============================================================

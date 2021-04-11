@@ -4,7 +4,7 @@
     <title>The Sign Up Cube</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -39,19 +39,115 @@
             <td><%= timeSlotResults[i].startTime %></td>
             <td><%= timeSlotResults[i].endTime %></td>
             <td><%= timeSlotResults[i].activityDescription %></td>
+            <td>
+             <% for (let index = 0; index < guestSignUpResults.length; index++) { %>
+
+               <% if(guestSignUpResults[index].slotId === timeSlotResults[i]._id.toString()) { %>
+
+               <%= guestSignUpResults[index].name %>
+
+               <% } %> 
+             <% } %>
+            </td>
             <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
-            <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
-            <td><button class ="buttonSignUp" data-eventId="<%= timeSlotResults[i].eventId %>" data-slotId ="<%= timeSlotResults[i]._id %>">Sign Up</button></td>
+            <td><button class ="buttonSignUp" data-eventId="<%= timeSlotResults[i].eventId %>" data-slotId ="<%= timeSlotResults[i]._id %>" data-recurringId="<%= timeSlotResults[i].recurringId %>" >Sign Up</button></td>
         </tr>
 
         <% } %>
     </tbody>
   </table>
-  
-  
  
 </section>
+<% if (user.local.email) { %>
+  
+  <div class="modal">
+    <div class="modal-header">
+     <span class="close-btn">&times;</span>
+     <h1>Sign Up</h1>
+   </div>
+   <div class="modal-content">
+     
+     <form action ="/guestSignUp" method ="POST">
+       <p>Name</p>
+       <input type ="text" name ="guestName" value = <%= user.local.displayName %>>
+ 
+       <p>Email</p>
+       <input type ="email" name ="guestEmail" value = <%= user.local.email %>>
+ 
+       <p>Phone Number</p>
+       <input type="tel" name ="guestTel" value = <%= user.local.telephone %>>
+ 
+       <input type="hidden" name ="guestEventId">
+ 
+       <input type="hidden" name ="guestSlotId">
+ 
+       <input type="hidden" name ="guestRecurringId">
+ 
+       <button class ="buttonSubmitGuest">Sign Up</button>
+     </form>
+   </div>
+   <div class="modal-footer">
+     <h2></h2>
+   </div>
+ </div>
+<% } else { %>
+  <div class="modal">
+   <div class="modal-header">
+    <span class="close-btn">&times;</span>
+    <h1>Sign Up</h1>
+  </div>
+  <div class="modal-content">
+    
+    <form action ="/guestSignUp" method ="POST">
+      <p>Name</p>
+      <input type ="text" name ="guestName">
+
+      <p>Email</p>
+      <input type ="email" name ="guestEmail">
+
+      <p>Phone Number</p>
+      <input type="tel" name ="guestTel">
+
+      <input type="hidden" name ="guestEventId">
+
+      <input type="hidden" name ="guestSlotId">
+
+      <input type="hidden" name ="guestRecurringId">
+
+      <button class ="buttonSubmitGuest">Sign Up As Guest</button>
+    </form>
+
+     <!-- LOGIN FORM -->
+     <h2>Login To Sign Up</h2>
+     <form action="/loginSignUp" method="post">
+       <div class="form-group">
+           <label>Email</label>
+           <input type="text" class="form-control" name="email">
+       </div>
+       <div class="form-group">
+           <label>Password</label>
+           <input type="password" class="form-control" name="password">
+       </div>
+
+       <button type="submit" class="btn btn-warning btn-lg">Login</button>
+     </form>
+ 
+     <p>Need an account? <a href="/signup">Signup</a></p>
+     
+ 
+   </div>
+   <div class="modal-footer">
+     <h2></h2>
+   </div>
+ </div>
+  <% } %>
+
+   
+
 
 <script type="text/javascript" src="main.js"></script>
+
 </body>
 </html>
+
+

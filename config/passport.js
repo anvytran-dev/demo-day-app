@@ -32,45 +32,53 @@ module.exports = function(passport) {
     // =========================================================================
     // we are using named strategies since we have one for login and one for signup
 	// by default, if there was no name, it would just be called 'local'
-
     passport.use('local-signup', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
-        passwordField : 'password',
-        passReqToCallback : true // allows us to pass back the entire request to the callback
+        //by default, local strategy uses username and password, we will override
+        //with email        
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
+        var displayName = req.body.displayName;
+        var telephone = req.body.telephone;
+        //asynchronous
+        //User.findOne wont fire unless data is sent back
+        process.nextTick(function() {
 
-		// find a user whose email is the same as the forms email
-		// we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email' :  email }, function(err, user) {
-            // if there are any errors, return the error
-            if (err)
-                return done(err);
+            //find a user whose email is the same as the forms email
+            //we are checking to see if the user trying to login already exists
+            User.findOne({ 'local.email' : email }, function(err, user) {
+                // if there are any errors, return the error
+                if (err)
+                    return done(err);
 
-            // check to see if theres already a user with that email
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-            } else {
+                //check to see if theres already a user with that email
+                if (user) {
+                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                } else {
+                    //if there is no user with that email
+                    //create the user
+                    var newUser = new User();
 
-				// if there is no user with that email
-                // create the user
-                var newUser            = new User();
+                    //set the user's local credentials
+                    newUser.local.email = email;
+                    newUser.local.password = newUser.generateHash(password);
 
-                // set the user's local credentials
-                newUser.local.email    = email;
-                newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
+                    // i need help with this.
+                    newUser.local.displayName = req.body.displayName; 
 
-				// save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
-            }
+                    newUser.local.telephone = req.body.telephone; 
 
+                    //save the user
+                    newUser.save(function(err) {
+                        if(err)
+                            throw err;
+                        return done(null, newUser);
+                    });
+                }
+            });
         });
-
     }));
 
     // =========================================================================
