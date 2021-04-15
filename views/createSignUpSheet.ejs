@@ -1,51 +1,235 @@
-<!doctype html>
-<html>
-<head>
-    <title>The Sign Up Cube</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Creative - Start Bootstrap Theme</title>
+    <!-- Favicon-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="bootstrap-profile/assets/img/favicon.ico"
+    />
+    <!-- Font Awesome icons (free version)-->
+    <script
+      src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Third party plugin CSS-->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="bootstrap-profile/css/styles.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link
+      rel="icon"
+      type="image/png"
+      href="eventForm/images/icons/favicon.ico"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="eventForm/vendor/bootstrap/css/bootstrap.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="eventForm/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="eventForm/vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="eventForm/vendor/css-hamburgers/hamburgers.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="eventForm/vendor/select2/select2.min.css"
+    />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="eventForm/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="eventForm/css/main.css" />
+    <!--===============================================================================================-->
+  </head>
+  <body id="page-top">
+    <!-- Navigation-->
+    <nav
+      class="navbar navbar-expand-lg navbar-light fixed-top py-3"
+      id="mainNav"
+    >
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/profile"
+          >The Sign Up Cube</a
+        >
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto my-2 my-lg-0">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/createSignUpSheet"
+                >Create Sign Up Sheet</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/viewCreatedEvents"
+                >Edit My Sign Up Sheet</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services"
+                >View My Sign Up Sheets</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/viewVolunteering"
+                >View My Volunteering Activity</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+      <div
+        class="bg-contact2"
+       
+      >
+        <div class="container-contact2">
+          <div class="wrap-contact2">
+            <% if (user.local.email) { %>
+            <form action="/filledOutSignUpSheet" method ="POST" class="contact2-form validate-form">
+              <span class="contact2-form-title"> Create </span>
 
-  <section class="createSignUpSheet">
-    <% if (user.local.email) { %>
-      <form action="/filledOutSignUpSheet" method ="POST">
-          <h1>Create Sign Up Sheet</h1>
-        <div class="item">
-          <p>Name</p>
-            <input type="text" name="name" placeholder="Name"/>
-        </div>
-        <div class="item">
-          <p>Phone</p>
-          <input type="tel" name="phone" placeholder="### ### ####"/>
-        </div>
-        <div class="item">
-          <p>Event Title</p>
-          <input type="text" name="eventTitle" placeholder=""/>
-        </div>
-        <div class="item">
-          <p>Event Start Date</p>
-          <input type="date" name="startDate" required/>
-          <i class="fas fa-calendar-alt"></i>
-        </div>
-        <div class="item">
-          <p>Event End Date</p>
-          <input type="date" name="endDate" required/>
-          <i class="fas fa-calendar-alt"></i>
-        </div>
-        <div class="item">
-          <p>Event Description</p>
-          <textarea rows="3" name ="eventDescription"></textarea>
-        </div>
-        <div class="btn-block">
-          <button type="submit">Send</button>
-        </div>
+              <div
+                class="wrap-input2 validate-input"
+                data-validate="Name is required"
+              >
+                <p class="focus-input2" data-placeholder="NAME"></p>
+                 <input class="inputDateEForm" type="text" name="name" placeholder="" />
+                 
+              </div>
 
-      </form>
-    <% } %>
-  </section>
+              <div
+                class="wrap-input2 validate-input"
+                data-validate="Event Name is required"
+              >
+                <p class="focus-input2" data-placeholder="EVENT NAME"></p>
+                  <input class="inputDateEForm" type="text" name="eventTitle" placeholder="" />
 
-<script type="text/javascript" src="main.js"></script>
-</body>
+              </div>
+
+              <div
+                class="wrap-input2 validate-input"
+                data-validate="Event START DATE is required"
+              >
+                <p class="focus-input2" data-placeholder="START DATE"></p>
+                  <input class="inputDateEForm" type="date" name="startDate" placeholder="start" required />
+                  <i class="fas fa-calendar-alt"></i>
+                
+              </div>
+
+              <div
+                class="wrap-input2 validate-input"
+                data-validate="Event END DATE is required"
+              >
+                <p class="focus-input2" data-placeholder="END DATE"></p>
+                  <input class="inputDateEForm" type="date" name="endDate" required />
+                  <i class="fas fa-calendar-alt"></i>
+              
+              </div>
+
+              <div
+                class="wrap-input2 validate-input"
+                data-validate="Event Description is required"
+              >
+                <p class="focus-input2" data-placeholder="Event Description"></p>
+                  <textarea class="inputDateEForm" rows="3" name="eventDescription"></textarea>
+
+              </div>
+
+              <div class="container-contact2-form-btn">
+                <div class="wrap-contact2-form-btn">
+                  <div class="contact2-form-bgbtn"></div>
+                  <button type="submit" class="contact2-form-btn">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Footer-->
+    <footer class="bg-light py-5">
+      <div class="container">
+        <div class="small text-center text-muted">
+          Copyright © 2020 - Start Bootstrap
+        </div>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <!-- Core theme JS-->
+    <!--===============================================================================================-->
+	<script src="eventForm/vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+    <script src="eventForm/vendor/bootstrap/js/popper.js"></script>
+    <script src="eventForm/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+    <script src="eventForm/vendor/select2/select2.min.js"></script>
+  <!--===============================================================================================-->
+    <script src="eventForm/js/main.js"></script>
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'UA-23581568-13');
+    </script>
+    <script type="text/javascript" src="main.js"></script>
+    <script src="bootstrap-profile/js/scripts.js"></script>
+  </body>
 </html>
