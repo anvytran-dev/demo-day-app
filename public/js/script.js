@@ -58,37 +58,37 @@ $(document).ready(function(){
 
 	// AJAX send form
 		
-	$("form").submit(function(event){
-		event.preventDefault();
+	// $("form").submit(function(event){
+	// 	event.preventDefault();
 	 
-		var form = $(this),
-			term = form.serialize(),
-			url = form.attr("action"),
-			required_fields_filled = true;
+	// 	var form = $(this),
+	// 		term = form.serialize(),
+	// 		url = form.attr("action"),
+	// 		required_fields_filled = true;
 			
-		form.find("input, textarea, select").each(function(){
-			if($(this).prop("required") && $(this).val()==""){
-				required_fields_filled = false;
-			}
-		});
+	// 	form.find("input, textarea, select").each(function(){
+	// 		if($(this).prop("required") && $(this).val()==""){
+	// 			required_fields_filled = false;
+	// 		}
+	// 	});
 
-		if(required_fields_filled){
-			var posting = $.post(url, term);
-			posting
-			.done(function(data){
-				if(data=="ok"){
-					$(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
-				}else{
-					$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-				}
-			})
-			.fail(function(){
-				$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
-			});
-		}else{
-			$(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
-		}
-	});
+	// 	if(required_fields_filled){
+	// 		var posting = $.post(url, term);
+	// 		posting
+	// 		.done(function(data){
+	// 			if(data=="ok"){
+	// 				$(".alert-form-success").fadeIn(200).delay(5000).fadeOut(200);
+	// 			}else{
+	// 				$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
+	// 			}
+	// 		})
+	// 		.fail(function(){
+	// 			$(".alert-form-error").fadeIn(200).delay(5000).fadeOut(200);
+	// 		});
+	// 	}else{
+	// 		$(".alert-form-check-fields").fadeIn(200).delay(5000).fadeOut(200);
+	// 	}
+	// });
 
 	// Function to add style to form, when user clicks to input inside it
 

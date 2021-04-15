@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <title>The Sign Up Cube</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <% if (user.local.email) { %>
+
+    <section class="" id ="">
+        
+      <ul class="volunteeringUl">
+        <% for(var i=0; i<volunteeringSlots.length; i++) {%>
+          
+          <li class="liItems" data-eventId ='<%= volunteeringSlots[i].eventId %>'>
+
+            <span>Event: '<%= volunteeringSlots[i].eventName %>' </span>
+            <span>Date: '<%= volunteeringSlots[i].slotDate %>' </span>
+            <span>Start Time: '<%= volunteeringSlots[i].startTime%>'</span>
+            <span>End Time: '<%= volunteeringSlots[i].endTime %>' </span>
+            <span>Activity Description: '<%= volunteeringSlots[i].activityDes %>' </span>
+
+            <section class = "secIcon">
+              
+              <button class ="buttonCancelSignUp" data-slotSignUpId =<%= volunteeringSlots[i].slotId %>>CANCEL MY SIGN UP</button>
+            
+            </section>
+
+          </li>
+        <% } %>
+      </ul>   
+    </section>
+  <% } %>
+
+  <% if (user.local.email) { %>
+  
+    <div class="modal">
+      <div class="modal-header">
+       <span class="close-btn">&times;</span>
+       <h1>Edit Event Details</h1>
+     </div>
+     <div class="modal-content">
+       
+       <form action ="/editEventDetails" method ="POST">
+          
+         <p>Name</p>
+         <input type ="text" name ="editDisplayName" value ="" class = "inputDisplayName">
+   
+         <p>Phone Number</p>
+         <input type="tel" name ="editDisplayTel" value = "" class = "inputDisplayTel">
+
+         <p>Event Title</p>
+         <input type="text" name ="editEventTitle" value = "" class = "inputDisplayEventTitle">
+
+         <p>Event Start Date</p>
+         <input type="date" name ="editStartDate" value = "" class = "inputDisplayStartDate">
+         <i class="fas fa-calendar-alt"></i>
+
+         <p>Event End Date</p>
+         <input type="date" name ="editEndDate" value = "" class = "inputDisplayEndDate">
+         <i class="fas fa-calendar-alt"></i>
+
+         <p>Event Description</p>
+         <textarea rows="3" name ="editEventDescription" class = "inputDisplayDescription" value =""></textarea>
+
+         <input type="hidden" name ="editEventId" class = "inputDisplayEventId">
+   
+         <button class ="buttonEditedDetails">Save Edited Details</button>
+
+       </form>
+     </div>
+     <div class="modal-footer">
+       <h2></h2>
+     </div>
+   </div>
+  <% } %>
+
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>

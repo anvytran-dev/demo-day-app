@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Sign Up Cube</title>
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <% if (user.local.email) { %>
+        <section class="secRecurringSlots">
+        
+            <ul class="ulRecurringSlots">
+              <% for(var i=0; i<recurringSlots.length; i++) {%>
+                
+                <li class="liItems" data-eventIdRecur ='<%= recurringSlots[i].eventId %>'>
+      
+                  <span>Name: '<%= recurringSlots[i].name %>' </span>
+                  <span>Start Date: '<%= recurringSlots[i].startDate %>' </span>
+                  <span>End Time: '<%= recurringSlots[i].endDate%>'</span>
+                  <span>Recurring Day: '<%= recurringSlots[i].recurringDay%>'</span>
+                  <span>Start Time: '<%= recurringSlots[i].startTimeRecurring %>' </span>
+                  <span>End Time: '<%= recurringSlots[i].endTimeRecurring %>' </span>
+                  <span>Activity Description: '<%= recurringSlots[i].activityDescription %>' </span>
+                  <span>Number of Volunteers Needed: '<%= recurringSlots[i].numberVolunteersNeededRecurring
+                    %>' </span>
+      
+                  <section class = "secIcon">
+                    
+
+                    <span><i class="editRecurringSlot fa fa-edit" data-editRecurTimeSlot ="<%= recurringSlots[i]._id %>" data-editEventIdRecur ='<%= recurringSlots[i].eventId %>'></i></span>
+              
+                     <span><i class="trashRecurringSlot fa fa-trash" aria-hidden="true" data-deleteRecurTimeSlot ="<%= recurringSlots[i]._id %>"></i></span>
+                  
+                  </section>
+      
+                </li>
+              <% } %>
+            </ul>   
+          </section>
+    <% } %>
+
+    <% if (user.local.email) { %>
+  
+        <div class="modal">
+          <div class="modal-header">
+           <span class="close-btn">&times;</span>
+           <h1>Edit Recurring Time Slot</h1>
+         </div>
+         <div class="modal-content">
+           
+           <form action ="/editRecurringSlots" method ="POST">
+
+            <p>Name</p>
+            <input type="text" name ="editRecurringSlotName" value = "" class = "editRecurringSlotName">
+              
+            <p>Start Date</p>
+            <input type="date" name ="startDate" value = "" class = "editRecurringSlotStartDate">
+            <i class="fas fa-calendar-alt"></i>
+
+            <p>End Date</p>
+            <input type="date" name ="endDate" value = "" class = "editRecurringSlotEndDate">
+            <i class="fas fa-calendar-alt"></i>
+
+            <select name="recurringDay" class ="recurringDay">
+                <option value="" selected></option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+       
+            <p>Start Time:</p>
+            <input type="time" name="startTimeRecurring" class="editRecurringSlotStartTime" 
+            min="00:00" max="24:00">
+      
+            <p>End Time:</p>
+            <input type="time" name="endTimeRecurring" class="editRecurringSlotEndTime" 
+            min="00:00" max="24:00">
+      
+            <p>Activity Description</p>
+            <textarea rows="3" name ="activityDescriptionRecurring" class = "editRecurringSlotActDescription" value =""></textarea>
+      
+            <p>Volunteers Needed:</p>
+            <input type="number" name="numberVolunteersNeededRecurring" class="editRecurringSlotNumVolunteersNeeded">
+      
+            <input type="hidden" name ="editEventIdRecur" class = "editEventIdRecur">
+      
+            <input type="hidden" name ="editRecurringId" class = "editRecurringId">
+       
+            <button class ="buttonEditedRecurringDetails">Save New Details</button>
+      
+          </form>
+        </div>
+        <div class="modal-footer">
+           <h2></h2>
+        </div>
+       </div>
+      <% } %>
+
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+

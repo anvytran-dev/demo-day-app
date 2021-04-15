@@ -21,6 +21,13 @@
 
       <form action ="/saveTimeSlots?id=<%= eventDetails._id %>" method ="POST" class ="addTimeSlots">
 
+        <section class ="eventName">
+
+          <label for="eventName">Event</label>
+          <input type="text" class ="eventName" name="eventName" value ="<%= eventDetails.eventTitle %>" readonly>
+
+        </section>
+
         <section class ="date">
 
           <label for="todayDate">Date:</label>
@@ -67,6 +74,13 @@
   <section class ="addRecurringTimes">
 
     <form action ="/addRecurringSlots?id=<%= eventDetails._id %>" method ="POST">
+
+      <section class ="eventNameRecurring">
+
+        <label for="eventNameRecurring">Event</label>
+        <input type="text" class ="eventNameRecurring" name="eventNameRecurring" placeholder ="<%= eventDetails.eventTitle %>" readonly>
+
+      </section>
 
       <section class ="secRecurringSlotName">
        <label for="recurringSlotName">Recurring Slot Name:</label>
@@ -136,6 +150,7 @@
 
 
       <button class ="buttonAddRecurringSlots">Add Recurring Slots</button>
+      <span><i class="getRecurringTimeSlots fa fa-edit" data-recurringEventId =<%= eventDetails._id %> ></i></span>
     </form>
 
   </section>
@@ -164,6 +179,13 @@
             <td><%= timeSlots[i].endTime %></td>
             <td><%= timeSlots[i].activityDescription %></td>
             <td><%= timeSlots[i].numberVolunteersNeeded %></td>
+            <td class = "secIcons">
+
+              <span><i class="editAddTimeSlot fa fa-edit" data-id =<%= timeSlots[i]._id %> ></i></span>
+              
+              <span><i class="trashAddTimeSlot fa fa-trash" data-idTrash =<%= timeSlots[i]._id %>  aria-hidden="true"></i></span>
+            
+            </td>
         </tr>
 
         <% } %>
@@ -180,6 +202,53 @@
 
 <% } %>
 
+<% if (user.local.email) { %>
+  
+  <div class="modal">
+    <div class="modal-header">
+     <span class="close-btn">&times;</span>
+     <h1>Edit Time Slot/h1>
+   </div>
+   <div class="modal-content">
+     
+     <form action ="/editTimeSlot" method ="POST">
+        
+      <p>Date</p>
+      <input type="date" name ="editDateSingle" value = "" class = "inputEditDateSingle">
+      <i class="fas fa-calendar-alt"></i>
+ 
+      <p>Start Time:</p>
+      <input type="time" name="editStartTimeSingle" class="inputEditStartTimeSingle" 
+      min="00:00" max="24:00">
+
+      <p>End Time:</p>
+      <input type="time" name="editEndTimeSingle" class="inputEditEndTimeSingle" 
+      min="00:00" max="24:00">
+
+      <p>Event Description</p>
+      <textarea rows="3" name ="editEventDescriptionSingle" class = "inputEditDescriptionSingle" value =""></textarea>
+
+      <p>Volunteers Needed:</p>
+      <input type="number" name="editNumVolunteersNeededSingle" class="inputNumberVolunteersNeededSingle">
+
+      <input type="hidden" name ="editEventIdSingle" class = "inputEditEventIdSingle">
+
+      <input type="hidden" name ="editRecurringIdSingle" class = "inputEditRecurringIdSingle">
+
+      <input type="hidden" name ="editObjIdSingle" class = "inputEditObjIdSingle">
+ 
+      <button class ="buttonEditedDetails">Save New Details</button>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+     <h2></h2>
+  </div>
+ </div>
+<% } %>
+
 <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
+
+

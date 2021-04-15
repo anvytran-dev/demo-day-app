@@ -10,6 +10,9 @@ var ObjectId = require('mongodb').ObjectId;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
+
+const exphbs = require('express-handlebars');
+const nodemailer = require("nodemailer");
 var figlet = require('figlet');
 
 const Moment = require('moment');
@@ -41,7 +44,11 @@ app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
+app.engine('handlebars', exphbs());
+
 app.set('view engine', 'ejs'); // set up ejs for templating
+
+app.set('view engine', 'handlebars');
 
 // required for passport
 app.use(session({

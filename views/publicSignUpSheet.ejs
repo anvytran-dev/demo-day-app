@@ -40,7 +40,7 @@
             <td><%= timeSlotResults[i].endTime %></td>
             <td><%= timeSlotResults[i].activityDescription %></td>
             <td>
-             <% for (let index = 0; index < guestSignUpResults.length; index++) { %>
+             <% for (let index = 0; index <guestSignUpResults.length; index++) { %>
 
                <% if(guestSignUpResults[index].slotId === timeSlotResults[i]._id.toString()) { %>
 
@@ -50,7 +50,20 @@
              <% } %>
             </td>
             <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
-            <td><button class ="buttonSignUp" data-eventId="<%= timeSlotResults[i].eventId %>" data-slotId ="<%= timeSlotResults[i]._id %>" data-recurringId="<%= timeSlotResults[i].recurringId %>" >Sign Up</button></td>
+            <td>
+              <button class ="buttonSignUp" 
+                data-eventId="<%= timeSlotResults[i].eventId %>" 
+                data-slotId ="<%= timeSlotResults[i]._id %>" data-recurringId="<%= timeSlotResults[i].recurringId %>"
+                data-eventNameInfo ="<%= timeSlotResults[i].eventName %>"
+                data-slotDate ="<%= timeSlotResults[i].date %>"
+                data-startTime ="<%= timeSlotResults[i].startTime %>"
+                data-endTime ="<%= timeSlotResults[i].endTime %>"
+                data-activityDes ="<%= timeSlotResults[i].activityDescription %>"
+                
+                >Sign Up</button>
+            </td>
+
+            <input type ="hidden" data-eventName ="<%= timeSlotResults[i].eventName %>">
         </tr>
 
         <% } %>
@@ -58,39 +71,17 @@
   </table>
  
 </section>
-<% if (user.local.email) { %>
+
+<% if( typeof user !== 'undefined' ) { %>
+  <% console.log('user loggedin') %>
+
   
-  <div class="modal">
-    <div class="modal-header">
-     <span class="close-btn">&times;</span>
-     <h1>Sign Up</h1>
-   </div>
-   <div class="modal-content">
-     
-     <form action ="/guestSignUp" method ="POST">
-       <p>Name</p>
-       <input type ="text" name ="guestName" value = <%= user.local.displayName %>>
+  <button class ="buttonLogOut">LOG OUT</button>
  
-       <p>Email</p>
-       <input type ="email" name ="guestEmail" value = <%= user.local.email %>>
- 
-       <p>Phone Number</p>
-       <input type="tel" name ="guestTel" value = <%= user.local.telephone %>>
- 
-       <input type="hidden" name ="guestEventId">
- 
-       <input type="hidden" name ="guestSlotId">
- 
-       <input type="hidden" name ="guestRecurringId">
- 
-       <button class ="buttonSubmitGuest">Sign Up</button>
-     </form>
-   </div>
-   <div class="modal-footer">
-     <h2></h2>
-   </div>
- </div>
-<% } else { %>
+  
+<% } %>
+
+<% if( typeof user === 'undefined') { %>
   <div class="modal">
    <div class="modal-header">
     <span class="close-btn">&times;</span>
@@ -114,6 +105,16 @@
 
       <input type="hidden" name ="guestRecurringId">
 
+      <input type="hidden" name ="eventNameFilled">
+
+      <input type="hidden" name ="slotDateFilled">
+
+      <input type="hidden" name ="startTimeFilled">
+
+      <input type="hidden" name ="endTimeFilled">
+
+      <input type="hidden" name ="actDesFilled">
+
       <button class ="buttonSubmitGuest">Sign Up As Guest</button>
     </form>
 
@@ -129,6 +130,8 @@
            <input type="password" class="form-control" name="password">
        </div>
 
+       <input type ="hidden" name ="eventIdPublic" value ="<%= signUpResults._id %>">
+
        <button type="submit" class="btn btn-warning btn-lg">Login</button>
      </form>
  
@@ -140,7 +143,51 @@
      <h2></h2>
    </div>
  </div>
-  <% } %>
+
+<% } else if (user.local.email) { %>
+  
+  <div class="modal">
+    <div class="modal-header">
+     <span class="close-btn">&times;</span>
+     <h1>Sign Up</h1>
+   </div>
+   <div class="modal-content">
+     
+     <form action ="/guestSignUp" method ="POST">
+       <p>Name</p>
+       <input type ="text" name ="guestName" value = <%= user.local.displayName %>>
+ 
+       <p>Email</p>
+       <input type ="email" name ="guestEmail" value = <%= user.local.email %>>
+ 
+       <p>Phone Number</p>
+       <input type="tel" name ="guestTel" value = <%= user.local.telephone %>>
+ 
+       <input type="hidden" name ="guestEventId">
+ 
+       <input type="hidden" name ="guestSlotId">
+ 
+       <input type="hidden" name ="guestRecurringId">
+
+       <input type="hidden" name ="eventNameFilled">
+
+       <input type="hidden" name ="slotDateFilled">
+ 
+       <input type="hidden" name ="startTimeFilled">
+ 
+       <input type="hidden" name ="endTimeFilled">
+ 
+       <input type="hidden" name ="actDesFilled">
+ 
+       <button class ="buttonSubmitGuest">Sign Up</button>
+     </form>
+   </div>
+   <div class="modal-footer">
+     <h2></h2>
+   </div>
+ </div>
+<% } %>
+
 
    
 
@@ -149,5 +196,7 @@
 
 </body>
 </html>
+
+
 
 

@@ -3,7 +3,7 @@ const Moment = require('moment');
 const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
 
-var figlet = require('figlet');
+const nodemailer = require("nodemailer");
 
 module.exports = function (app, passport, db) {
 
@@ -26,6 +26,7 @@ module.exports = function (app, passport, db) {
 
   // LOGOUT ==============================
   app.get('/logout', function (req, res) {
+    console.log('blue')
     req.logout();
     res.redirect('/');
   });
@@ -72,32 +73,29 @@ module.exports = function (app, passport, db) {
       if (err) return console.log(err)
       res.render('viewCreatedEvents.ejs', {
         user: req.user,
-        signUpSheet: result
+        signUpSheet: result,
+
       })
     })
   });
+
+
 
   //GET 'publicSignUpSheet'
 
 
   app.get('/publicSignUpSheet', function (req, res) {
-    console.log('THIS IS REQUEST')
-    console.log(req)
+
     let findSignUp = db.collection('signUpSheet').findOne({ _id: ObjectId(req.query.id) })
 
     let timeSlot = db.collection('timeSlots').find({ eventId: req.query.id }).toArray()
 
-    let guestSignUp = db.collection('guestSignUp').find({}).toArray()
+    let guestSignUp = db.collection('userSignUp').find({}).toArray()
 
     Promise.all([findSignUp, timeSlot, guestSignUp]).then((values) => {
 
       const [findSignUpResults, timeSlotResults, guestSignUpResults] = values;
 
-      console.log('Hi')
-      console.log(findSignUpResults)
-      console.log(timeSlotResults)
-      console.log(guestSignUpResults)
-      console.log(req.user)
 
       res.render('publicSignUpSheet.ejs', {
         signUpResults: findSignUpResults,
@@ -112,13 +110,100 @@ module.exports = function (app, passport, db) {
 
   });
 
-  //Get 'signUp' page
+  //Get 'viewVolunteering.ejs' page
 
-  app.get('/signUpForSlot', function (req, res) {
+  app.get('/viewVolunteering', function (req, res) {
+
+    db.collection('userSignUp').find({ email: req.user.local.email }).toArray((err, result) => {
+      if (err) return console.log(err)
+      res.render('viewVolunteering.ejs', {
+        user: req.user,
+        volunteeringSlots: result,
+
+      })
+    })
+
 
   })
 
+  //GET CREATED EVENTS INFO IN MONGODB 
 
+  app.post('/editCreatedEvents', function (req, res) {
+    console.log(req)
+    console.log({ _id: ObjectId(req.body.eventId) })
+    db.collection('signUpSheet').find({ _id: ObjectId(req.body.eventId) }).toArray((err, result) => {
+
+      if (err) return res.send(err)
+      res.send(result)
+    })
+  });
+
+  //GET TIME SLOT INFO IN MONGODB 
+
+  app.post('/getTimeSlotDetails', function (req, res) {
+    console.log(req)
+    console.log({ _id: ObjectId(req.body._id) })
+    db.collection('timeSlots').find({ _id: ObjectId(req.body._id) }).toArray((err, result) => {
+      console.log('RESULTS')
+      console.log(result)
+      if (err) return res.send(err)
+      res.send(result)
+    })
+  });
+
+  //GET RECURRING TIME SLOT INFO IN MONGODB 
+
+  app.post('/getRecurTimeSlotDetails', function (req, res) {
+    console.log(req)
+    console.log({ _id: ObjectId(req.body._id) })
+    db.collection('addRecurringSlots').find({ _id: ObjectId(req.body._id) }).toArray((err, result) => {
+      console.log('RESULTS')
+      console.log(result)
+      if (err) return res.send(err)
+      res.send(result)
+    })
+  });
+  //GET EMAIL PAGE
+
+  app.get('/emailVolunteers', function (req, res) {
+
+    let findVolunteers = db.collection('userSignUp').aggregate([
+      { $match: { eventId: req.query.eventId } },
+      { $project: { email: 1 } }
+    ]).toArray()
+
+    Promise.all([findVolunteers]).then((values) => {
+
+      let [findVolunteersResults] = values;
+      console.log(findVolunteersResults)
+
+      res.render('emailVolunteers.ejs', {
+
+        user: req.user,
+        volunteers: findVolunteersResults
+      })
+
+    }).catch((error) => {
+      console.log(error)
+    })
+
+
+  });
+
+  //GET EDIT RECURRING SLOTS PAGE
+
+  app.get('/editRecurringTimeSlots', function getEditRecurringSlotsPage(req, res) {
+
+    db.collection('addRecurringSlots').find({ eventId: req.query.id }).toArray((err, results) => {
+
+      if (err) return console.log(err)
+      res.render('viewEditRecurringSlotsPage.ejs', {
+        recurringSlots: results,
+        user: req.user
+      })
+    })
+
+  })
 
 
   //POST REQUESTS
@@ -174,6 +259,7 @@ module.exports = function (app, passport, db) {
     db.collection('timeSlots').save(
 
       {
+        eventName: req.body.eventName,
         date: req.body.date,
         startTime: req.body.startTime,
         endTime: req.body.endTime,
@@ -197,13 +283,19 @@ module.exports = function (app, passport, db) {
   //SAVE GUEST SIGN UP
 
   app.post('/guestSignUp', (req, res) => {
+    console.log('PINK')
     console.log(req)
-    db.collection('guestSignUp').save(
+    db.collection('userSignUp').save(
 
       {
         name: req.body.guestName,
         email: req.body.guestEmail,
         phone: req.body.guestTel,
+        eventName: req.body.eventNameFilled,
+        slotDate: req.body.slotDateFilled,
+        startTime: req.body.startTimeFilled,
+        endTime: req.body.endTimeFilled,
+        activityDes: req.body.actDesFilled,
         eventId: req.body.guestEventId,
         slotId: req.body.guestSlotId,
         recurringId: req.body.recurringId
@@ -237,7 +329,9 @@ module.exports = function (app, passport, db) {
 
   app.post('/addRecurringSlots', (req, res, next) => {
 
+
     db.collection('addRecurringSlots').save(
+
 
       {
         name: req.body.recurringSlotName,
@@ -316,6 +410,240 @@ module.exports = function (app, passport, db) {
 
 
 
+  //EDIT + SAVE EVENT DETAILS
+
+  app.post('/editEventDetails', (req, res) => {
+    db.collection('signUpSheet').updateOne({ _id: ObjectId(req.body.editEventId) }, {
+      $set: {
+
+        name: req.body.editDisplayName,
+        phone: req.body.editDisplayTel,
+        eventTitle: req.body.editEventTitle,
+        eventStartDate: req.body.editStartDate,
+        eventEndDate: req.body.editEndDate,
+        eventDescription: req.body.editEventDescription,
+        email: req.user.local.email
+
+      }
+    }, function (err, result) {
+      if (err) {
+        console.log('no')
+        console.log(err);
+      } else {
+        console.log("Post Updated successfully");
+        res.redirect('/viewCreatedEvents')
+      }
+    });
+
+  });
+
+
+
+  //EDIT + SAVE TIME SLOT DETAILS
+
+  app.post('/editTimeSlot', (req, res) => {
+    console.log('TTT')
+    console.log(req)
+    db.collection('timeSlots').updateOne({ _id: ObjectId(req.body.editObjIdSingle) }, {
+      $set: {
+
+        date: req.body.editDateSingle,
+        startTime: req.body.editStartTimeSingle,
+        endTime: req.body.editEndTimeSingle,
+        activityDescription: req.body.editEventDescriptionSingle,
+        numberVolunteersNeeded: req.body.editNumVolunteersNeededSingle,
+        eventId: req.body.editEventIdSingle,
+        recurringId: req.body.editRecurringIdSingle,
+        email: req.user.local.email
+      }
+    }, function (err, result) {
+      if (err) {
+        console.log('no')
+        console.log(err);
+      } else {
+        console.log("Post Updated successfully");
+        res.redirect('/addTimeSlots?' + 'id=' + ObjectId(req.body.editEventIdSingle))
+      }
+    });
+
+  });
+
+  //EDIT + SAVE RECURRING TIME SLOT DETAILS
+
+  app.post('/editRecurringSlots', (req, res, next) => {
+
+    db.collection('addRecurringSlots').findOneAndDelete({ _id: ObjectId(req.body.editRecurringId) })
+
+    db.collection('timeSlots').deleteMany({ recurringId: ObjectId(req.body.editRecurringId) })
+
+    console.log('PUMPKIN')
+    console.log(req.body.editEventIdRecur)
+    db.collection('addRecurringSlots').save(
+
+
+      {
+        _id: ObjectId(req.body.editRecurringId),
+        name: req.body.recurringSlotName,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        recurringDay: req.body.recurringDay,
+        startTimeRecurring: req.body.startTimeRecurring,
+        endTimeRecurring: req.body.endTimeRecurring,
+        numberVolunteersNeededRecurring: req.body.numberVolunteersNeededRecurring,
+        activityDescription: req.body.activityDescriptionRecurring,
+        eventId: req.body.editEventIdRecur,
+        email: req.user.local.email
+      },
+
+      (err, result) => {
+        if (err) {
+          console.log('DIDNT SAVE')
+          next(err)
+          return
+        }
+        const startDate = moment(req.body.startDate)
+        const endDate = moment(req.body.endDate)
+        let recurringDatesArray = []
+        let documentsToLoad = []
+
+        let slot = moment(startDate).isoWeekday(req.body.recurringDay);//ex. recurringDay === 'monday'
+
+        if (slot.isBefore(startDate) === true) {
+          slot.add(7, 'days')
+        }
+
+        recurringDatesArray.push(slot.format("YYYY-MM-DD"))
+
+        console.log(slot)
+        slot.add(7, 'days')
+
+        while (slot.isBefore(endDate)) {
+
+          recurringDatesArray.push(slot.format("YYYY-MM-DD"))
+          slot.add(7, 'days')
+        }
+        console.log('HELLO')
+        console.log(recurringDatesArray)
+
+        recurringDatesArray.forEach(date => documentsToLoad.push(
+
+          {
+            date: date,
+            startTime: req.body.startTimeRecurring,
+            endTime: req.body.endTimeRecurring,
+            activityDescription: req.body.activityDescriptionRecurring,
+            numberVolunteersNeeded: req.body.numberVolunteersNeededRecurring,
+            eventId: req.body.editEventIdRecur,
+            recurringId: ObjectId(req.body.editRecurringId),
+            email: req.user.local.email
+          }
+        ))
+
+
+
+        db.collection('timeSlots').insertMany(documentsToLoad, (error) => {
+
+          if (error) {
+            next(error)
+            return
+          }
+
+          console.log('saved to database')
+          res.redirect('/editRecurringTimeSlots?' + 'id=' + ObjectId(req.body.editEventIdRecur))
+        })
+      
+      })
+
+
+
+  });
+
+  //SEND EMAILS
+
+  app.post('/sendEmail', function (req, res) {
+
+    console.log(req.body)
+
+    async function main() {
+
+      // create reusable transporter object using the default SMTP transport
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+          user: 'eliane.heidenreich45@ethereal.email',
+          pass: '6FTSjnbkgs5kCUz1Ue'
+        }
+      });
+
+      console.log((req.body.email).join(', '))
+
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: `"${req.body.name}" <${req.body.serSendEmail}>`, // sender address
+        to: req.body.email.join(', '), // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: req.body.message, // plain text body
+        // html: "<b>Hello world?</b>", // html body
+      });
+
+      console.log("Message sent: %s", info.messageId);
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+      // Preview only available when sending through an Ethereal account
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    }
+
+    main().catch(console.error);
+
+    res.redirect('/viewCreatedEvents')
+
+
+  })
+
+
+
+
+  //DELETE EVENT 
+
+  app.delete('/deleteEvent', (req, res) => {
+    db.collection('signUpSheet').findOneAndDelete({ _id: ObjectId(req.body._id) }, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
+  })
+
+  //DELETE SINGLE TIME SLOT
+
+  app.delete('/deleteTimeSlot', (req, res) => {
+    db.collection('timeSlots').findOneAndDelete({ _id: ObjectId(req.body._id) }, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
+  })
+
+   //DELETE RECURRING TIME SLOTS
+
+   app.delete('/deleteRecurringSlot', (req, res) => {
+
+    db.collection('addRecurringSlots').findOneAndDelete({ _id: ObjectId(req.body.recurringId) })
+
+    db.collection('timeSlots').deleteMany({ recurringId: ObjectId(req.body.recurringId) }, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
+  })
+
+  //DELETE/CANCEL VOLUNTEER SIGN UP
+
+  app.delete('/deleteCancelSignUp', (req, res) => {
+    db.collection('userSignUp').findOneAndDelete({ slotId: req.body.slotId }, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
+  })
+
 
 
 
@@ -338,11 +666,20 @@ module.exports = function (app, passport, db) {
     failureFlash: true // allow flash messages
   }));
 
-  app.post('/loginSignUp', passport.authenticate('local-login', {
-    successRedirect: '/publicSignUpSheet', // redirect to the secure profile section
-    failureRedirect: '/login', // redirect back to the signup page if there is an error
-    failureFlash: true // allow flash messages
-  }));
+  // app.post('/loginSignUp', passport.authenticate('local-login', {
+  //   successRedirect: '/publicSignUpSheet?id=' req.query.id, // redirect to the secure profile section
+  //   failureRedirect: '/login', // redirect back to the signup page if there is an error
+  //   failureFlash: true // allow flash messages
+  // }));
+
+  app.post('/loginSignUp',
+    passport.authenticate('local-login'),
+    function (req, res) {
+      console.log(req)
+      // If this function gets called, authentication was successful.
+      // `req.user` contains the authenticated user.
+      res.redirect('/publicSignUpSheet?id=' + req.body.eventIdPublic);
+    });
 
   // SIGNUP =================================
   // show the signup form
