@@ -37,6 +37,14 @@
   </nav>
   <!-- Masthead-->
   <header class="masthead">
+    <% if( typeof user !== 'undefined' ) { %>
+      <% console.log('user loggedin') %>
+    
+      
+      <button class ="buttonLogOut">LOG OUT</button>
+     
+      
+    <% } %>
     <div class="container h-100">
       <div class="row h-100 align-items-center justify-content-center text-center">
         

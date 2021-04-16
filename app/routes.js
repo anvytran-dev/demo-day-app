@@ -113,6 +113,8 @@ module.exports = function (app, passport, db) {
 
       const [findSignUpResults, timeSlotResults, guestSignUpResults] = values;
 
+      console.log(guestSignUpResults)
+
 
       res.render('publicSignUpSheet.ejs', {
         signUpResults: findSignUpResults,
@@ -278,7 +280,8 @@ module.exports = function (app, passport, db) {
     db.collection('timeSlots').save(
 
       {
-        eventName: req.body.eventName,
+        name: req.body.eventName,
+        recurringName: null,
         date: req.body.date,
         startTime: req.body.startTime,
         endTime: req.body.endTime,
@@ -316,7 +319,7 @@ module.exports = function (app, passport, db) {
         endTime: req.body.endTimeFilled,
         activityDes: req.body.actDesFilled,
         eventId: req.body.guestEventId,
-        slotId: req.body.guestSlotId,
+        slotId: ObjectId(req.body.guestSlotId),
         recurringId: req.body.recurringId
 
       },
@@ -348,12 +351,15 @@ module.exports = function (app, passport, db) {
 
   app.post('/addRecurringSlots', (req, res, next) => {
 
+    console.log('000')
+    console.log(req.body)
+
 
     db.collection('addRecurringSlots').save(
 
 
-      {
-        name: req.body.recurringSlotName,
+      { eventName: req.body.eventNameRecurring,
+        recurringName: req.body.recurringSlotName,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         recurringDay: req.body.recurringDay,
@@ -397,6 +403,8 @@ module.exports = function (app, passport, db) {
         recurringDatesArray.forEach(date => documentsToLoad.push(
 
           {
+            eventName: req.body.eventNameRecurring,
+            recurringName: req.body.recurringSlotName,
             date: date,
             startTime: req.body.startTimeRecurring,
             endTime: req.body.endTimeRecurring,
@@ -668,7 +676,7 @@ module.exports = function (app, passport, db) {
   //DELETE/CANCEL VOLUNTEER SIGN UP
 
   app.delete('/deleteCancelSignUp', (req, res) => {
-    db.collection('userSignUp').findOneAndDelete({ slotId: req.body.slotId }, (err, result) => {
+    db.collection('userSignUp').findOneAndDelete({ slotId: ObjectId(req.body.slotId) }, (err, result) => {
       if (err) return res.send(500, err)
       res.send('Message deleted!')
     })

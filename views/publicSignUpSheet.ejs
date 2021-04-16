@@ -72,26 +72,42 @@
     </thead>
     <tbody>
         <% for(var i =0; i <timeSlotResults.length; i++) { %>
-            
+          <% let slotIdArray = []%>
         <tr>
             <!-- <th scope="row"></th> -->
             <td><%= timeSlotResults[i].date %></td>
             <td><%= timeSlotResults[i].startTime %></td>
             <td><%= timeSlotResults[i].endTime %></td>
             <td><%= timeSlotResults[i].activityDescription %></td>
-            <td>
-             <% for (let index = 0; index <guestSignUpResults.length; index++) { %>
-
-               <% if(guestSignUpResults[index].slotId === timeSlotResults[i]._id.toString()) { %>
-
-               <%= guestSignUpResults[index].name %>
-
-               <% } %> 
-             <% } %>
-            </td>
             <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
             <td>
-              
+              <ul id ="ul<%= timeSlotResults[i]._id %>">
+                <% for (let index = 0; index <guestSignUpResults.length; index++) { %>
+                  
+                  <% if(guestSignUpResults[index].slotId.toString() === timeSlotResults[i]._id.toString()) { %>
+                  
+                  <li>
+                  <%= guestSignUpResults[index].name %>
+                  </li> 
+
+                  <% slotIdArray.push(guestSignUpResults[index].slotId.toString())%>
+
+                <% } %> 
+
+
+
+             <% } %>
+            </ul>
+                  
+            </td>
+            
+
+        
+           
+           <td><%=Number(timeSlotResults[i].numberVolunteersNeeded)%></td>
+            
+            <td>
+              <% if( slotIdArray.length < Number(timeSlotResults[i].numberVolunteersNeeded)) { %>
               <button class ="buttonSignUp" 
                 data-eventId="<%= timeSlotResults[i].eventId %>" 
                 data-slotId ="<%= timeSlotResults[i]._id %>" data-recurringId="<%= timeSlotResults[i].recurringId %>"
@@ -102,6 +118,9 @@
                 data-activityDes ="<%= timeSlotResults[i].activityDescription %>"
                 
                 >Sign Up</button>
+              <% } else { %>
+                <span>SLOTS FILLED</span>
+              <% } %>
             </td>
 
             <input type ="hidden" data-eventName ="<%= timeSlotResults[i].eventName %>">

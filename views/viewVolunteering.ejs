@@ -8,6 +8,15 @@
 </head>
 <body>
 
+  <% if( typeof user !== 'undefined' ) { %>
+    <% console.log('user loggedin') %>
+  
+    
+    <button class ="buttonLogOut">LOG OUT</button>
+   
+    
+  <% } %>
+
   <% if (user.local.email) { %>
 
     <section class="" id ="">
