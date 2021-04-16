@@ -69,3 +69,110 @@
     from {top:-300px; opacity:0}
     to {top:0; opacity:1}
   }
+
+/* CALENDAR */
+header{
+    text-align: center;
+}
+
+header > h1{
+    color: blueviolet;
+}
+
+.calendar-container{
+    width: 100%;
+ 
+
+}
+
+
+
+.month-container{
+    width: 100%;
+    height: 100%;
+}
+
+.day-of-week{
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+   
+    grid-gap: 1em;
+}
+
+.day-of-week > span{
+    height: 14vh;
+    text-align: center;
+}
+
+.days{
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+   
+    grid-gap: 1em;
+}
+
+.date{
+  height: 14vh;
+  text-align: center;
+ 
+}
+
+.hidden{
+  display: none;
+}
+
+#formEditEvent p, #formEditEvent input, #formEditEvent textarea{
+  font-size: 10px;
+}
+
+#editEventD{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+#editEventD > section{
+  display: flex;
+  flex-direction: row;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 100%;
+
+}
+
+#editEventD > section > section {
+  width: 50%;
+}
+
+textarea{
+  width: 100%;
+}
+
+.sectionsProfile{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.secProfileTop, .secProfileBottom{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.secProfileTop > section, .secProfileBottom > section {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../img/bg.png');
+
+}
+
+
+
+
+
+
+

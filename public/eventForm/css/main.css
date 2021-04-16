@@ -143,7 +143,6 @@ iframe {
 
 .container-contact2 {
   width: 100%;  
-  min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -161,6 +160,7 @@ iframe {
 }
 
 .wrap-contact2 {
+  height: 900px;
   width: 790px;
   background: #fff;
   border-radius: 10px;

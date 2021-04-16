@@ -17,6 +17,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="bootstrap-profile/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -38,116 +39,57 @@
         <header class="masthead">
             <section class ="sectionsProfile">
 
-                <section>
+                <section class ="secProfileTop">
 
-                    <form action = "/createSignUpSheet" method ="POST">
+                    <section class="secProfileCreate">
+
+                        <form action = "/createSignUpSheet" method ="POST">
                             
-                        <button class ="goToCreateSignUpSheet" type ="submit">Create a Sign Up Sheet</button>
+                            <button class ="goToCreateSignUpSheet" type ="submit">Create a Sign Up Sheet</button>
     
-                    </form>
+                        </form>
 
-                    <form action = "/viewCreatedEvents" method ="GET">
+                    </section>
+
+                    <section class="secProfileEditEvents">
+
+                        <form action = "/viewCreatedEvents" method ="GET">
                     
-                         <button class ="goToCreatetEvents" type ="submit">Edit My Sign Up Sheets</button>
+                            <button class ="goToCreatetEvents" type ="submit">Edit My Sign Up Sheets</button>
     
-                    </form>
+                        </form>
+
+                    </section>
 
                 </section>
 
-                <section>
+                <section class ="secProfileBottom">
+
+                    <section class="secProfileViewSheets">
     
-                    <form action = "/viewCreatedEvents" method ="GET">
+                        <form action = "/viewCreatedEvents" method ="GET">
                     
-                        <button class ="goToCreatetEvents" type ="submit">View My Sign Up Sheets</button>
+                            <button class ="goToCreatetEvents" type ="submit">View My Sign Up Sheets</button>
     
-                    </form>
+                        </form>
+
+                    </section>
+
+                    <section class="secProfileViewVolunteering">
     
-                     <form action = "/viewVolunteering" method ="GET">
+                        <form action = "/viewVolunteering" method ="GET">
                     
-                        <button class ="goToViewVolunteering" type ="submit">View My Volunteering</button>
+                            <button class ="goToViewVolunteering" type ="submit">View My Volunteering</button>
     
-                     </form>
+                        </form>
+                    </section>  
                     
                 </section>
 
             </section>
             
         </header>
-        <!-- About-->
-        <section class="page-section bg-primary" id="about">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">We've got what you need!</h2>
-                        <hr class="divider light my-4" />
-                        <p class="text-white-50 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>
-                        <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-       
-        <!-- Portfolio-->
-        <div id="portfolio">
-            <div class="container-fluid p-0">
-                <div class="row no-gutters">
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="bootstrap-profile/assets/img/portfolio/fullsize/1.jpg">
-                            <img class="img-fluid" src="bootstrap-profile/assets/img/portfolio/thumbnails/1.jpg" alt="" />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="bootstrap-profile/assets/img/portfolio/fullsize/2.jpg">
-                            <img class="img-fluid" src="bootstrap-profile/assets/img/portfolio/thumbnails/2.jpg" alt="" />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="bootstrap-profile/assets/img/portfolio/fullsize/3.jpg">
-                            <img class="img-fluid" src="bootstrap-profile/assets/img/portfolio/thumbnails/3.jpg" alt="" />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="bootstrap-profile/assets/img/portfolio/fullsize/4.jpg">
-                            <img class="img-fluid" src="bootstrap-profile/assets/img/portfolio/thumbnails/4.jpg" alt="" />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="bootstrap-profile/assets/img/portfolio/fullsize/5.jpg">
-                            <img class="img-fluid" src="bootstrap-profile/assets/img/portfolio/thumbnails/5.jpg" alt="" />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="bootstrap-profile/assets/img/portfolio/fullsize/6.jpg">
-                            <img class="img-fluid" src="bootstrap-profile/assets/img/portfolio/thumbnails/6.jpg" alt="" />
-                            <div class="portfolio-box-caption p-3">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
       
         <!-- Footer-->
         <footer class="bg-light py-5">

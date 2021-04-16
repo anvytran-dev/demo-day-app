@@ -65,7 +65,6 @@ module.exports = function(passport) {
                     newUser.local.email = email;
                     newUser.local.password = newUser.generateHash(password);
 
-                    // i need help with this.
                     newUser.local.displayName = req.body.displayName; 
 
                     newUser.local.telephone = req.body.telephone; 

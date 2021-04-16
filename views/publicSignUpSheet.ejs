@@ -8,6 +8,46 @@
 </head>
 <body>
 
+  <header>
+    <h1>welcome to my calendar</h1>
+    <h3 class ="displayCurrentMonth "data-curMonth ="<%= currentMonthNum%>"><%= months[currentMonthNum] %></h3>
+    
+    <h2>year <%= year %></h2>
+    <button class ="buttonLeftArrow"><i class="fa fa-arrow-left"></i></button>
+    <button class ="buttonRightArrow"><i class="fa fa-arrow-right"></i></button>
+  </header>
+  
+  
+  <div class="calendar-container">
+    <% for(let month = 0;month < calendar.length;month++) { %>
+      
+      <div class="month-container <% if(month != currentMonthNum) { %> hidden <% } %>" id="<%= months[month] %>" data-month="<%= month %>"> 
+        <h3 style="text-align: center;"> <%= months[month] %> </h3>
+        
+        
+        <div class="day-of-week">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>
+            Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <% for(let x = 0;x < calendar[month].length;x++) { %>
+            <div class="days">
+              <% for(let y = 0;y < calendar[month][x].length;y++) { %>
+                
+                <div class="date">
+                  <div id="<%=calendar[month][x][y] %>">
+                    <%= calendar[month][x][y] %>
+                  </div>
+                </div>
+                
+                <% } %>
+              </div>
+              <% } %>
+            </div>
+            
+            <% } %>
+          </div>
+          
+
   <section class="eventDetails">
 
 
@@ -51,6 +91,7 @@
             </td>
             <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
             <td>
+              
               <button class ="buttonSignUp" 
                 data-eventId="<%= timeSlotResults[i].eventId %>" 
                 data-slotId ="<%= timeSlotResults[i]._id %>" data-recurringId="<%= timeSlotResults[i].recurringId %>"

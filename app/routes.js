@@ -5,6 +5,8 @@ const moment = MomentRange.extendMoment(Moment);
 
 const nodemailer = require("nodemailer");
 
+const calendar = require("../config/calendar-config.js");
+
 module.exports = function (app, passport, db) {
 
   // normal routes ===============================================================
@@ -69,11 +71,16 @@ module.exports = function (app, passport, db) {
   //GET 'viewCreatedEvents' PAGE
 
   app.get('/viewCreatedEvents', isLoggedIn, function (req, res) {
+    const year = req.query.year || 2020;
+    const months = ["January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"];
+
     db.collection('signUpSheet').find({ email: req.user.local.email }).toArray((err, result) => {
       if (err) return console.log(err)
       res.render('viewCreatedEvents.ejs', {
         user: req.user,
         signUpSheet: result,
+        calendar: calendar(year), months, year
 
       })
     })
@@ -81,10 +88,20 @@ module.exports = function (app, passport, db) {
 
 
 
+
   //GET 'publicSignUpSheet'
 
 
   app.get('/publicSignUpSheet', function (req, res) {
+
+    const year = (new Date).getFullYear()
+    
+    
+    const months = ["January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"];
+
+    const currentMonthNum = (new Date).getMonth()
+
 
     let findSignUp = db.collection('signUpSheet').findOne({ _id: ObjectId(req.query.id) })
 
@@ -101,6 +118,8 @@ module.exports = function (app, passport, db) {
         signUpResults: findSignUpResults,
         timeSlotResults: timeSlotResults,
         guestSignUpResults: guestSignUpResults,
+        calendar: calendar(year),months,year,
+        currentMonthNum: currentMonthNum,
         user: req.user,
       })
     }).catch((error) => {
@@ -576,7 +595,18 @@ module.exports = function (app, passport, db) {
         }
       });
 
-      console.log((req.body.email).join(', '))
+      console.log((req.body.email))
+      let singleEmailArray = []
+
+      if(typeof req.body.email === "string") {
+        singleEmailArray.push(req.body.email)
+
+        console.log(singleEmailArray)
+
+        req.body.email = singleEmailArray
+        console.log('oran')
+        console.log(req.body.email)
+      }
 
       // send mail with defined transport object
       let info = await transporter.sendMail({

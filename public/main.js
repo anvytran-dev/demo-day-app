@@ -6,7 +6,7 @@ Array.from(editIconViewCreated).forEach(function (element) {
   console.log(element)
   element.addEventListener('click', function () {
 
-    const eventId = this.parentNode.parentNode.parentNode.getAttribute('data-eventId')
+    const eventId = this.getAttribute('data-eventId')
 
     console.log(eventId)
 
@@ -94,9 +94,11 @@ Array.from(editIconAddTimeSlots).forEach(function (element) {
 var trashIconViewCreatedEvents = document.getElementsByClassName("trashViewCreated");
 
 Array.from(trashIconViewCreatedEvents).forEach(function (element) {
+  console.log(element)
   element.addEventListener('click', function () {
-
-    const eventId = this.parentNode.parentNode.parentNode.getAttribute('data-eventId')
+    console.log(element)
+    const eventId = this.getAttribute('data-eventId')
+    console.log(eventId)
 
     fetch('deleteEvent', {
       method: 'delete',
@@ -215,7 +217,7 @@ Array.from(addTimeSlot).forEach(function (element) {
 
   element.addEventListener('click', function () {
 
-    const eventIdAdd = this.parentNode.parentNode.getAttribute('data-eventId')
+    const eventIdAdd = this.getAttribute('data-eventId')
 
     window.location.href = "/addTimeSlots?id=" + eventIdAdd
   })
@@ -390,4 +392,70 @@ Array.from(buttonLogout).forEach(function (element) {
     })
   });
 });
+
+//CALENDAR CLICK THROUGH BUTTONS
+
+const buttonLeftArrow = document.getElementsByClassName('buttonLeftArrow')
+
+const buttonRightArrow = document.getElementsByClassName('buttonRightArrow')
+
+const months = ["January", "February", "March", "April", "May", "June", "July",
+"August", "September", "October", "November", "December"];
+
+Array.from(buttonLeftArrow).forEach(function(element) {
+
+
+  element.addEventListener('click', function() {
+
+  
+    changeMonth(-1)
+
+
+
+  })
+})
+
+Array.from(buttonRightArrow).forEach(function(element) {
+
+
+  element.addEventListener('click', function() {
+
+  
+    changeMonth(1)
+
+
+
+  })
+})
+
+function changeMonth(incrementMonth) {
+
+  let monthElement = document.querySelector('.displayCurrentMonth')
+
+  let currentMonthNumber = Number(monthElement.getAttribute('data-curMonth'))
+
+  currentMonthNumber += incrementMonth
+
+  currentMonthNumber = Math.max(0, Math.min(currentMonthNumber, 11))
+
+  monthElement.setAttribute('data-curMonth', currentMonthNumber) 
+
+  //update html text of current month
+
+  monthElement.innerText = months[currentMonthNumber]
+
+  //update current month number so the correct calendar appears
+
+  let monthList = document.getElementsByClassName('month-container')
+
+  Array.from(monthList).forEach((element) => {
+    if(element.getAttribute('data-month') === currentMonthNumber.toString()) {
+
+      element.classList.remove('hidden')
+    } else {
+      element.classList.add('hidden')
+    }
+  })
+
+}
 
