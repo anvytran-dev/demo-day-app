@@ -109,12 +109,13 @@ header > h1{
     grid-template-columns: repeat(7,1fr);
    
     grid-gap: 1em;
+    border: 1px solid black;
 }
 
 .date{
   height: 14vh;
   text-align: center;
- 
+  border-right: 1px solid black;
 }
 
 .hidden{
@@ -169,6 +170,16 @@ textarea{
   background-image: url('../img/bg.png');
 
 }
+
+.date:hover {
+  background-color: yellow;
+}
+
+#tableSlotsForDay > .newRow{
+  height: 10px;
+  border: 1px solid black;
+}
+
 
 
 

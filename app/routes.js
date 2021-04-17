@@ -56,7 +56,7 @@ module.exports = function (app, passport, db) {
   app.get('/addTimeSlots', isLoggedIn, function (req, res) {
     db.collection('signUpSheet').findOne({ _id: ObjectId(req.query.id) }, (err, eventDetails) => {
 
-      db.collection('timeSlots').find({ eventId: req.query.id }).toArray((error, slots) => {
+      db.collection('timeSlots').find({ eventId: req.query.id }).sort({date: 1}).toArray((error, slots) => {
         if (err) return console.log(err)
         console.log(slots)
         res.render('addTimeSlots.ejs', {
@@ -92,7 +92,7 @@ module.exports = function (app, passport, db) {
   //GET 'publicSignUpSheet'
 
 
-  app.get('/publicSignUpSheet', function (req, res) {
+app.get('/publicSignUpSheet', function (req, res) {
 
     const year = (new Date).getFullYear()
     
@@ -131,6 +131,148 @@ module.exports = function (app, passport, db) {
 
   });
 
+  //GET 'publicSignUpSheetList'
+
+
+app.get('/publicSignUpSheetList', function (req, res) {
+
+  const year = (new Date).getFullYear()
+  
+  
+  const months = ["January", "February", "March", "April", "May", "June", "July",
+  "August", "September", "October", "November", "December"];
+
+  const currentMonthNum = (new Date).getMonth()
+
+
+  let findSignUp = db.collection('signUpSheet').findOne({ _id: ObjectId(req.query.id) })
+
+  let timeSlot = db.collection('timeSlots').find({ eventId: req.query.id }).sort({date: 1}).toArray()
+
+  let guestSignUp = db.collection('userSignUp').find({}).toArray()
+
+  Promise.all([findSignUp, timeSlot, guestSignUp]).then((values) => {
+
+    const [findSignUpResults, timeSlotResults, guestSignUpResults] = values;
+
+    console.log(guestSignUpResults)
+
+
+    res.render('publicSignUpSheetList.ejs', {
+      signUpResults: findSignUpResults,
+      timeSlotResults: timeSlotResults,
+      guestSignUpResults: guestSignUpResults,
+      calendar: calendar(year),months,year,
+      currentMonthNum: currentMonthNum,
+      user: req.user,
+    })
+  }).catch((error) => {
+    console.log(error)
+  });
+
+
+});
+
+  //Get 'viewVolunteering.ejs' page
+
+  app.get('/viewVolunteering', function (req, res) {
+
+    db.collection('userSignUp').find({ email: req.user.local.email }).toArray((err, result) => {
+      if (err) return console.log(err)
+      res.render('viewVolunteering.ejs', {
+        user: req.user,
+        volunteeringSlots: result,
+
+      })
+    })
+
+
+  })
+
+  //GET CREATED EVENTS INFO IN MONGODB 
+
+  app.post('/editCreatedEvents', function (req, res) {
+    console.log(req)
+    console.log({ _id: ObjectId(req.body.eventId) })
+    db.collection('signUpSheet').find({ _id: ObjectId(req.body.eventId) }).toArray((err, result) => {
+
+      if (err) return res.send(err)
+      res.send(result)
+    })
+  });
+
+  //GET TIME SLOT INFO IN MONGODB 
+
+  app.post('/getTimeSlotDetails', function (req, res) {
+    console.log(req)
+    console.log({ _id: ObjectId(req.body._id) })
+    db.collection('timeSlots').find({ _id: ObjectId(req.body._id) }).toArray((err, result) => {
+      console.log('RESULTS')
+      console.log(result)
+      if (err) return res.send(err)
+      res.send(result)
+    })
+  });
+
+    //GET TIME SLOT BY DATE INFO IN MONGODB 
+
+    app.post('/getTimeSlotsByDate', function (req, res) {
+      console.log(req)
+      console.log({ _id: ObjectId(req.body._id) })
+
+      db.collection('timeSlots').find({
+        "eventId" : {"$in" : [ req.body.eventId]},
+        "date" : { "$in" : [req.body.date]}
+      })
+      
+      .toArray((err, result) => {
+        console.log('RESULTS')
+        console.log(result)
+        if (err) return res.send(err)
+        res.send(result)
+      })
+    });
+
+    
+
+  //GET RECURRING TIME SLOT INFO IN MONGODB 
+
+  app.post('/getRecurTimeSlotDetails', function (req, res) {
+    console.log(req)
+    console.log({ _id: ObjectId(req.body._id) })
+    db.collection('addRecurringSlots').find({ _id: ObjectId(req.body._id) }).toArray((err, result) => {
+      console.log('RESULTS')
+      console.log(result)
+      if (err) return res.send(err)
+      res.send(result)
+    })
+  });
+  //GET EMAIL PAGE
+
+  app.get('/emailVolunteers', function (req, res) {
+
+    let findVolunteers = db.collection('userSignUp').aggregate([
+      { $match: { eventId: req.query.eventId } },
+      { $project: { email: 1 } }
+    ]).toArray()
+
+    Promise.all([findVolunteers]).then((values) => {
+
+      let [findVolunteersResults] = values;
+      console.log(findVolunteersResults)
+
+      res.render('emailVolunteers.ejs', {
+
+        user: req.user,
+        volunteers: findVolunteersResults
+      })
+
+    }).catch((error) => {
+      console.log(error)
+    })
+
+
+  });
   //Get 'viewVolunteering.ejs' page
 
   app.get('/viewVolunteering', function (req, res) {
@@ -329,7 +471,7 @@ module.exports = function (app, passport, db) {
         if (err) return console.log(err)
         console.log('saved to database')
         console.log(result)
-        res.redirect('/publicSignUpSheet?' + 'id=' + req.body.guestEventId)
+        res.redirect('/publicSignUpSheetList?' + 'id=' + req.body.guestEventId)
 
       })
   })
