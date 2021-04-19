@@ -160,12 +160,12 @@ iframe {
 }
 
 .wrap-contact2 {
-  height: 900px;
+  height: 550px;
   width: 790px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  padding: 72px 55px 90px 55px;
+  padding: 20px 55px 90px 55px;
 }
 
 
@@ -183,7 +183,7 @@ iframe {
   color: #333333;
   line-height: 1.2;
   text-align: center;
-  padding-bottom: 90px;
+  padding-bottom: 10px;
 }
 
 
@@ -195,7 +195,7 @@ iframe {
   width: 100%;
   position: relative;
   border-bottom: 2px solid #adadad;
-  margin-bottom: 37px;
+  margin-bottom: 15px;
 }
 
 .input2 {
@@ -442,6 +442,6 @@ textarea.input2 + .focus-input2::after {
 }
 
 .inputDateEForm{
-  margin-top: 5%;
+  margin-top: 3%;
   width: 100%;
 }

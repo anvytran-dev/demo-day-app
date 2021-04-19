@@ -117,20 +117,21 @@
                 >View My Volunteering Activity</a
               >
             </li>
+            <% if( typeof user !== 'undefined' ) { %>
+              <% console.log('user loggedin') %>
+            
+              
+              <li class="nav-item"><a class="nav-link js-scroll-trigger buttonLogOut">LOG OUT</a></li>
+             
+              
+            <% } %>
           </ul>
         </div>
       </div>
     </nav>
     <!-- Masthead-->
     <header class="masthead">
-      <% if( typeof user !== 'undefined' ) { %>
-        <% console.log('user loggedin') %>
-      
-        
-        <button class ="buttonLogOut">LOG OUT</button>
-       
-        
-      <% } %>
+
       <div
         class="bg-contact2"
        
@@ -165,7 +166,7 @@
               >
                 <p class="focus-input2" data-placeholder="START DATE"></p>
                   <input class="inputDateEForm" type="date" name="startDate" placeholder="start" required />
-                  <i class="fas fa-calendar-alt"></i>
+                  
                 
               </div>
 
@@ -175,7 +176,7 @@
               >
                 <p class="focus-input2" data-placeholder="END DATE"></p>
                   <input class="inputDateEForm" type="date" name="endDate" required />
-                  <i class="fas fa-calendar-alt"></i>
+                  
               
               </div>
 
@@ -207,7 +208,7 @@
     <footer class="bg-light py-5">
       <div class="container">
         <div class="small text-center text-muted">
-          Copyright © 2020 - Start Bootstrap
+          
         </div>
       </div>
     </footer>

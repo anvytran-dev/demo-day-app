@@ -31,20 +31,21 @@
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewCreatedEvents">Edit My Sign Up Sheet</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">View My Sign Up Sheets</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewVolunteering">View My Volunteering Activity</a></li>
+          <% if( typeof user !== 'undefined' ) { %>
+            <% console.log('user loggedin') %>
+          
+            
+            <li class =" nav-item buttonLogOut">LOG OUT</li>
+           
+            
+          <% } %>
         </ul>
       </div>
     </div>
   </nav>
   <!-- Masthead-->
   <header class="masthead">
-    <% if( typeof user !== 'undefined' ) { %>
-      <% console.log('user loggedin') %>
-    
-      
-      <button class ="buttonLogOut">LOG OUT</button>
-     
-      
-    <% } %>
+
     <div class="container h-100">
       <div class="row h-100 align-items-center justify-content-center text-center">
         
@@ -70,7 +71,7 @@
                   
                   <tr>
                     <!-- <th scope="row"></th> -->
-                    <td><%= signUpSheet[i].eventTitle %>'</td>
+                    <td><%= signUpSheet[i].eventTitle %></td>
                     <td><%= signUpSheet[i].eventStartDate %></td>
                     <td><%= signUpSheet[i].eventEndDate %></td>
                     <td><%= signUpSheet[i].eventDescription %></td>
@@ -126,24 +127,20 @@
                     <input type ="text" name ="editDisplayName" value ="" class = "inputDisplayName">
                   </section>
                       
-                  <section>
-                    <p>Phone Number</p>
-                    <input type="tel" name ="editDisplayTel" value = "" class = "inputDisplayTel">
+                  <section>  
+                    <p>Event Title</p>
+                    <input type="text" name ="editEventTitle" value = "" class = "inputDisplayEventTitle">
                   </section>
                       
                 </section>
                     
                 <section>
 
-                  <section>  
-                      <p>Event Title</p>
-                      <input type="text" name ="editEventTitle" value = "" class = "inputDisplayEventTitle">
-                  </section>
-
                   <section>
                       
-                      <p>Event Description</p>
-                      <textarea rows="2" name ="editEventDescription" class = "inputDisplayDescription" value =""></textarea>
+                    <p>Event Description</p>
+                    <textarea rows="2" name ="editEventDescription" class = "inputDisplayDescription" value =""></textarea>
+                    
                   </section>
                       
                 </section>
@@ -154,13 +151,13 @@
                       
                     <p>Event End Date</p>
                       <input type="date" name ="editEndDate" value = "" class = "inputDisplayEndDate">
-                    <i class="fas fa-calendar-alt"></i>
+                    
                   </section>
 
                   <section>
                     <p>Event Start Date</p>
                     <input type="date" name ="editStartDate" value = "" class = "inputDisplayStartDate">
-                    <i class="fas fa-calendar-alt"></i>
+                    
                       
                   </section>
                 </section>

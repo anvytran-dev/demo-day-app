@@ -1,4 +1,7 @@
 //'viewCreatedEvents.ejs' EDIT BUTTON
+let modal = document.getElementsByClassName("modal")
+console.log(modal)
+
 var editIconViewCreated = document.getElementsByClassName('editViewCreated');
 console.log(editIconViewCreated)
 
@@ -26,7 +29,6 @@ Array.from(editIconViewCreated).forEach(function (element) {
       
       document.querySelector('.inputDisplayName').value = data[0].name
       
-      document.querySelector('.inputDisplayTel').value = data[0].phone
       
       document.querySelector('.inputDisplayEventTitle').value = data[0].eventTitle
       
@@ -39,8 +41,14 @@ Array.from(editIconViewCreated).forEach(function (element) {
       document.querySelector('.inputDisplayEventId').value = data[0]._id
       
     })
+
+    Array.from(modal).forEach((element) => {
+
+      element.style.display = "block"
+
+    })
     
-    modal.style.display = "block"
+    
     
   })
 })
@@ -429,12 +437,21 @@ Array.from(modalBtn).forEach(function (element) {
   })
 })
 
-let modal = document.querySelector(".modal")
-let closeBtn = document.querySelector(".close-btn")
 
-closeBtn.onclick = function () {
-  modal.style.display = "none"
+let closeBtn = document.getElementsByClassName("close-btn")
+
+
+Array.from(closeBtn).forEach((element) => {
+
+  element.onclick = function () {
+    document.querySelector('.modal').style.display = "none"
+  }
+
 }
+
+)
+
+
 window.onclick = function (e) {
   if (e.target == modal) {
     modal.style.display = "none"
