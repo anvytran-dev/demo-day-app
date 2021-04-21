@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Creative - Start Bootstrap Theme</title>
+  <title>The Sign Up Cube</title>
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="bootstrap-profile/assets/img/favicon.ico" />
   <!-- Font Awesome icons (free version)-->
@@ -16,7 +16,7 @@
   <!-- Third party plugin CSS-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
   <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="bootstrap-profile/css/styles.css" rel="stylesheet" />
+  <link href="bootstrap-timeSlots/css/styles.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
 </head>
 <body id="page-top">
@@ -31,33 +31,43 @@
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewCreatedEvents">Edit My Sign Up Sheet</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">View My Sign Up Sheets</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewVolunteering">View My Volunteering Activity</a></li>
+          <% if( typeof user !== 'undefined' ) { %>
+            <% console.log('user loggedin') %>
+          
+            
+            <li class="nav-item"><a class="nav-link js-scroll-trigger buttonLogOut">LOG OUT</a></li>
+           
+            
+          <% } %>
         </ul>
       </div>
     </div>
   </nav>
   <!-- Masthead-->
   <header class="masthead">
+    <section class = "eventNameAndAddSlots">
     <section class="eventDetails">
 
-      <% if( typeof user !== 'undefined' ) { %>
-        <% console.log('user loggedin') %>
       
-        
-        <button class ="buttonLogOut">LOG OUT</button>
-       
-        
-      <% } %>
       
       <% if (user.local.email) { %>
         <h2> <%= eventDetails.eventTitle %></h2>
+      
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary buttonAddTimeSlotToggle">Add Individual Time Slot</button>
+          <button type="button" class="btn btn-secondary buttonAddRecurringSlotsToggle ">Add Recurring Time Slots</button>
+          
+        </div>
         
         
       </section>
       <section class ="secAddDatesAndTime">
         
         <section class ="secAddTimeSlots">
+
+        
           
-          <form action ="/saveTimeSlots?id=<%= eventDetails._id %>" method ="POST" class ="addTimeSlots">
+          <form action ="/saveTimeSlots?id=<%= eventDetails._id %>" method ="POST" class ="addTimeSlots hideForm" id ="formAddTimeSlot">
             
             <section class ="eventName">
               
@@ -66,7 +76,7 @@
               
             </section>
             
-            <section class ="date">
+            <section class ="activityDate">
               
               <label for="todayDate">Date:</label>
               <input type="date" id="eventDate" name="date">
@@ -103,7 +113,7 @@
               
             </section>
             
-            <button class ="buttonAddTimeSlots">Add Time Slots</button>
+            <button class ="buttonAddTimeSlots">Add Time Slot</button>
             
           </form>
           
@@ -111,7 +121,7 @@
         
         <section class ="addRecurringTimes">
           
-          <form action ="/addRecurringSlots?id=<%= eventDetails._id %>" method ="POST">
+          <form action ="/addRecurringSlots?id=<%= eventDetails._id %>" method ="POST" class ="formAddRecurringTimes hideForm" id ="formAddRecurringSlots">
             
             <section class ="eventNameRecurring">
               
@@ -194,6 +204,7 @@
         </section>
         
       </section>
+    </section>
     </header>
       
       <section class = "displayTimeSlots">
@@ -206,6 +217,7 @@
               <th scope="col">End Time</th>
               <th scope="col">Location/Activity Description</th>
               <th scope="col">Volunteers Needed</th>
+              <th scope="col">Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -222,7 +234,7 @@
                   
                   <span><i class="editAddTimeSlot fa fa-edit" data-id =<%= timeSlots[i]._id %> ></i></span>
                   
-                  <span><i class="trashAddTimeSlot fa fa-trash" data-idTrash =<%= timeSlots[i]._id %>  aria-hidden="true"></i></span>
+                  <span class ="spanTsTrash"><i class="trashAddTimeSlot fa fa-trash" data-idTrash =<%= timeSlots[i]._id %>  aria-hidden="true"></i></span>
                   
                 </td>
               </tr>

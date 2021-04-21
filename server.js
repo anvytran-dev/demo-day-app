@@ -14,6 +14,7 @@ var flash    = require('connect-flash');
 const exphbs = require('express-handlebars');
 const nodemailer = require("nodemailer");
 var figlet = require('figlet');
+const { forEach } = require("lodash");
 
 const Moment = require('moment');
 const MomentRange = require('moment-range');

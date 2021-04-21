@@ -6,24 +6,28 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: auto;
+    padding-bottom: 1%;
+    margin-top: 3%;
   }
 
   .secAddTimeSlots{
-    width: 50%;
+    width: 100%;
+    
   }
 
   /* MODAL */
 
   .modal {
     display: none;
-    position: fixed; 
+    position: fixed;  
     padding-top: 50px;
     left: 0; 
     top: 0;
     width: 100%;
     height: 100%; 
-    background-color: rgb(179, 68, 179);
-    background-color: rgba(245, 62, 62, 0.5);
+    
+    background-color: rgba(192, 201, 199, 0.5);
   }
 
   .modal-header {
@@ -54,9 +58,10 @@
 }
   .close-btn {
     float: right; 
-    color: lightgray; 
+    color: rgb(1, 0, 0); 
     font-size: 24px;  
     font-weight: bold;
+    
   }
   .close-btn:hover {
     color: darkgray;
@@ -121,9 +126,12 @@ header > h1{
 .hidden{
   display: none;
 }
-
-#formEditEvent p, #formEditEvent input, #formEditEvent textarea{
-  font-size: 10px;
+#formEditEvent p{
+  font-weight: bold;
+  font-size: 16px;
+}
+#formEditEvent input, #formEditEvent textarea{
+  font-size: 14px;
 }
 
 #editEventD{
@@ -141,7 +149,7 @@ header > h1{
 
 }
 
-#editEventD > section > section {
+.secEditEvent > section > section {
   width: 50%;
 }
 
@@ -149,10 +157,21 @@ textarea{
   width: 100%;
 }
 
+#secEventDescViewEvents{
+  width: 100%;
+}
+
+.buttonEditedDetails{
+  font-size: 12px;
+  border-radius: 10%;
+}
+
 .sectionsProfile{
   display: flex;
   flex-direction: column;
   width: 100%;
+  background: linear-gradient(to bottom, rgba(240, 193, 228, 0.8) 0%, rgba(237, 241, 238, 0.8) 100%);
+  margin-top: 4%;
 }
 
 .secProfileTop, .secProfileBottom{
@@ -167,8 +186,13 @@ textarea{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('../img/bg.png');
+  border: 1px solid white;
+  cursor: pointer;
 
+}
+
+.secProfileTop > section:hover, .secProfileBottom > section:hover {
+  background-color:rgba(202, 147, 213, 0.2)
 }
 
 .date:hover {
@@ -179,6 +203,95 @@ textarea{
   height: 10px;
   border: 1px solid black;
 }
+
+.buttonProfileSecs{
+  font-size: 20px;
+  border: 0px;
+  background-color: transparent;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.viewCreatedEventsRows, .editRecurSlotsRow{
+  background-color: beige;
+}
+
+.viewCreatedEventsRows button{
+  border-radius: 10%;
+}
+
+.eventNameAndAddSlots{
+  background: rgba(237, 237, 210, 0.8);
+  padding-top: 4%;
+}
+
+.addRecurringTimes{
+  width: 100%;
+}
+
+
+.hideForm{
+  display: none;
+}
+
+.buttonAddTimeSlots{
+  border-radius: 10%;
+  font-size: 14px;
+}
+
+
+.buttonAddTimeSlotToggle:hover{
+  background-color: rgba(186, 98, 204, 0.8);
+}
+.buttonAddRecurringSlotsToggle:hover{
+  background-color: rgba(186, 98, 204, 0.8);
+}
+
+.buttonAddRecurringSlots{
+  border-radius: 10%;
+}
+
+.spanTsTrash{
+  margin-left: 20%;
+}
+
+.buttonPublicSignUpSheet{
+  border-radius: 10%;
+}
+
+.formEditRecurringSlots p{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.formEditRecurringSlots input, .formEditRecurringSlots textarea{
+  margin-bottom: 4%;
+}
+
+.formEditRecurringSlotsDates, .secEditRecurSlotsTimes, .secEditRecurSlotsNames{
+  display: flex;
+  width: 100%;
+  margin-bottom: 2%;
+}
+
+.formEditRecurringSlotsDates > section{
+  width: 33.3333%;
+}
+
+.buttonEditedRecurringDetails{
+  border-radius: 10%;
+}
+
+.secEditRecurSlotsNames > section {
+  width: 50%;
+}
+
+
+
+ 
+
+
+
+
 
 
 

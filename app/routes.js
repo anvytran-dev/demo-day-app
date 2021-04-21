@@ -652,7 +652,8 @@ app.get('/publicSignUpSheetList', function (req, res) {
 
       {
         _id: ObjectId(req.body.editRecurringId),
-        name: req.body.recurringSlotName,
+        eventName: req.body.editEventNameRecur,
+        recurringName: req.body.editRecurringSlotName,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         recurringDay: req.body.recurringDay,

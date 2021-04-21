@@ -35,7 +35,7 @@
             <% console.log('user loggedin') %>
           
             
-            <li class =" nav-item buttonLogOut">LOG OUT</li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger buttonLogOut">LOG OUT</a></li>
            
             
           <% } %>
@@ -69,7 +69,7 @@
               <tbody>
                 <% for(var i=0; i<signUpSheet.length; i++) {%>
                   
-                  <tr>
+                  <tr class ="viewCreatedEventsRows">
                     <!-- <th scope="row"></th> -->
                     <td><%= signUpSheet[i].eventTitle %></td>
                     <td><%= signUpSheet[i].eventStartDate %></td>
@@ -93,19 +93,7 @@
           </div>
         </div>
       </header>
-      <!-- About-->
-      <section class="page-section bg-primary" id="about">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-              <h2 class="text-white mt-0">We've got what you need!</h2>
-              <hr class="divider light my-4" />
-              <p class="text-white-50 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>
-              <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
-            </div>
-          </div>
-        </div>
-      </section>
+
       
       
       
@@ -136,7 +124,7 @@
                     
                 <section>
 
-                  <section>
+                  <section id = "secEventDescViewEvents">
                       
                     <p>Event Description</p>
                     <textarea rows="2" name ="editEventDescription" class = "inputDisplayDescription" value =""></textarea>
@@ -146,19 +134,19 @@
                 </section>
 
                 <section>
+
+                  <section>
+
+                    <p>Event Start Date</p>
+                    <input type="date" name ="editStartDate" value = "" class = "inputDisplayStartDate">
+                      
+                  </section>
                     
                   <section>
                       
                     <p>Event End Date</p>
-                      <input type="date" name ="editEndDate" value = "" class = "inputDisplayEndDate">
+                    <input type="date" name ="editEndDate" value = "" class = "inputDisplayEndDate">
                     
-                  </section>
-
-                  <section>
-                    <p>Event Start Date</p>
-                    <input type="date" name ="editStartDate" value = "" class = "inputDisplayStartDate">
-                    
-                      
                   </section>
                 </section>
               </section>
@@ -181,7 +169,7 @@
               
               <!-- Footer-->
               <footer class="bg-light py-5">
-                <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Start Bootstrap</div></div>
+                <div class="container"><div class="small text-center text-muted">2021 - The Sign Up Cube</div></div>
               </footer>
               <!-- Bootstrap core JS-->
               <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

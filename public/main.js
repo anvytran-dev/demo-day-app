@@ -1,3 +1,5 @@
+
+
 //'viewCreatedEvents.ejs' EDIT BUTTON
 let modal = document.getElementsByClassName("modal")
 console.log(modal)
@@ -91,8 +93,10 @@ Array.from(editIconAddTimeSlots).forEach(function (element) {
       document.querySelector('.inputEditObjIdSingle').value = data[0]._id
       
     })
+    Array.from(modal).forEach(element => {
+      element.style.display = "block"
+    })
     
-    modal.style.display = "block"
     
   })
 })
@@ -196,7 +200,8 @@ Array.from(editRecurringSlot).forEach(function (element) {
       
       console.log(data)
       // window.location.reload(true)
-      document.querySelector('.editRecurringSlotName').value = data[0].name
+      document.querySelector('.editRecurringEventName').value = data[0].eventName
+      document.querySelector('.editRecurringSlotName').value = data[0].recurringName
       document.querySelector('.editRecurringSlotStartDate').value = data[0].startDate
       document.querySelector('.editRecurringSlotEndDate').value = data[0].endDate
       document.querySelector('.recurringDay').value = data[0].recurringDay
@@ -210,8 +215,12 @@ Array.from(editRecurringSlot).forEach(function (element) {
       document.querySelector('.editRecurringId').value = data[0]._id
       
     })
+      
+      Array.from(modal).forEach(element => {
+
+        element.style.display = "block"
+      })
     
-    modal.style.display = "block"
     
   })
 })
@@ -364,8 +373,10 @@ Array.from(buttonToViewMore).forEach((element) => {
       
       
     })
+    Array.from(modal).forEach((element) => {
+      element.style.display = "block"
+    })
     
-    modal.style.display = "block"
     
   })
   
@@ -430,7 +441,10 @@ Array.from(modalBtn).forEach(function (element) {
     
     document.getElementsByName('actDesFilled')[0].value = actDes
     
-    modal.style.display = "block"
+    Array.from(modal).forEach( (element) => {
+      element.style.display = "block"
+    })
+    
     
     
     
@@ -612,4 +626,100 @@ function changeMonth(incrementMonth) {
   })
   
 }
+
+//GET 'createSignUpSheet' page
+
+const goToCreateSignUpSheet = document.getElementsByClassName('goToCreateSignUpSheet')
+
+Array.from(goToCreateSignUpSheet).forEach(element => {
+
+  element.addEventListener('click', getCreateSignUpPage)
+
+  function getCreateSignUpPage() {
+
+    window.location.href = "/createSignUpSheet"
+  }
+})
+
+//GET 'viewCreatedEvents' Page
+
+const getViewCreatedEvents = document.getElementsByClassName('goToCreatedEvents')
+
+Array.from(getViewCreatedEvents).forEach(element => {
+
+  element.addEventListener('click', getCreatedEvents)
+
+  function getCreatedEvents() {
+
+    window.location.href = "/viewCreatedEvents"
+  }
+})
+
+//GET 'viewPublishedSheets' Page
+
+const getViewPublishedSheets= document.getElementsByClassName('viewPublishedSheets')
+
+Array.from(getViewPublishedSheets).forEach(element => {
+
+  element.addEventListener('click', getPublishedSheets)
+
+  function getPublishedSheets() {
+
+    window.location.href = "/viewPublishedSheets"
+  }
+})
+
+//GET 'viewVolunteering' Page
+
+const getViewVolunteering= document.getElementsByClassName('goToViewVolunteering')
+
+Array.from(getViewVolunteering).forEach(element => {
+
+  element.addEventListener('click', seeViewVolunteering)
+
+  function seeViewVolunteering() {
+
+    window.location.href = "/viewVolunteering"
+  }
+})
+
+//Toggle Button: Add Individual Time Slot 
+
+const buttonAddTimeSlot = document.getElementsByClassName('buttonAddTimeSlotToggle')
+const formAddIndividualTimeSlot = document.querySelector('.addTimeSlots')
+
+Array.from(buttonAddTimeSlot).forEach(element => {
+  console.log(element)
+  element.addEventListener('click', () => {
+    
+    formAddRecurringSlots.classList.add('hideForm')
+
+    formAddIndividualTimeSlot.classList.toggle('hideForm')
+    
+
+  })
+
+  
+})
+
+//Toggle Button: Add Recurring Time Slots
+
+const buttonRecurringSlotsToggle = document.getElementsByClassName('buttonAddRecurringSlotsToggle')
+const formAddRecurringSlots = document.querySelector('.formAddRecurringTimes')
+
+Array.from(buttonRecurringSlotsToggle ).forEach(element => {
+  console.log(element)
+  element.addEventListener('click', () => {
+
+    formAddIndividualTimeSlot.classList.add('hideForm')
+
+    formAddRecurringSlots.classList.toggle('hideForm')
+    
+
+  })
+
+  
+})
+
+
 

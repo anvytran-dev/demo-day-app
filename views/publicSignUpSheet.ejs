@@ -15,6 +15,7 @@
     <h2>year <%= year %></h2>
     <button class ="buttonLeftArrow"><i class="fa fa-arrow-left"></i></button>
     <button class ="buttonRightArrow"><i class="fa fa-arrow-right"></i></button>
+    <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
   </header>
   <% 
   console.log(signUpResults._id) %> 
@@ -67,44 +68,49 @@
                 </div>
                 
                 <div class="modal">
-                <div class="modal-header">
-                  <span class="close-btn">&times;</span>
-                  <h1>Sign Up</h1>
-                </div>
-                <div class="modal-content">
-
-                  <table class="table">
-                    <thead class="thead-dark">
+                  <div class="modal-header">
+                    <span class="close-btn">&times;</span>
+                    <h1>Sign Up</h1>
+                  </div>
+                  <div class="modal-content">
+                    
+                    <table class="table">
+                      <thead class="thead-dark">
                         <tr class = "trHead">
-                            <th scope="col">Date</th>
-                            <th scope="col">Start Time</th>
-                            <th scope="col">End Time</th>
-                            <th scope="col">Location/Activity Description</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Start Time</th>
+                          <th scope="col">End Time</th>
+                          <th scope="col">Location/Activity Description</th>
                         </tr>
-                    </thead>
-                    <tbody id="tableSlotsForDay">
-                    </tbody>
-                  </table>
-                  
-
-
+                      </thead>
+                      <tbody id="tableSlotsForDay">
+                      </tbody>
+                    </table>
+                    
+                    
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <h2></h2>
+                  </div>
                 </div>
-                <div class="modal-footer">
-                  <h2></h2>
-                </div>
-              </div>
-           
+                
+                
+                
+                
+                
+                
+                <script type="text/javascript" src="main.js"></script>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+                
+              </body>
+              </html>
               
               
               
               
               
-              <script type="text/javascript" src="main.js"></script>
-              
-            </body>
-            </html>
-            
-            
-            
-            
-            

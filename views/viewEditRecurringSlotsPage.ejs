@@ -1,128 +1,227 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>The Sign Up Cube</title>
-    <link
-      rel="stylesheet"
-      href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <% if (user.local.email) { %>
-        <section class="secRecurringSlots">
-        
-            <ul class="ulRecurringSlots">
-              <% for(var i=0; i<recurringSlots.length; i++) {%>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>The Sign Up Cube</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="bootstrap-editRecurring/assets/img/favicon.ico" />
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap" rel="stylesheet">
+  <!-- Font Awesome icons (free version)-->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- Third party plugin CSS-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="bootstrap-editRecurring/css/styles.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/profile">The Sign Up Cube</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/createSignUpSheet">Create Sign Up Sheet</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewCreatedEvents">Edit My Sign Up Sheet</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">View My Sign Up Sheets</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewVolunteering">View My Volunteering Activity</a></li>
+          <% if( typeof user !== 'undefined' ) { %>
+            <% console.log('user loggedin') %>
+            
+            
+            <li class="nav-item"><a class="nav-link js-scroll-trigger buttonLogOut">LOG OUT</a></li>
+            
+            
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+      <% if (user.local.email) { %>
+        <section class = "displayEditRecurringTimeSlots">
+          
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Event Name</th>
+                <th scope="col">Recurring Slot Name</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Recurring Day</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Activity Description</th>
+                <th scope="col">Number of Volunteers Needed</th>
+                <th scope="col">Edit/Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <% for(var i =0; i <recurringSlots.length; i++) { %>
                 
-                <li class="liItems" data-eventIdRecur ='<%= recurringSlots[i].eventId %>'>
-      
-                  <span>Name: '<%= recurringSlots[i].name %>' </span>
-                  <span>Start Date: '<%= recurringSlots[i].startDate %>' </span>
-                  <span>End Time: '<%= recurringSlots[i].endDate%>'</span>
-                  <span>Recurring Day: '<%= recurringSlots[i].recurringDay%>'</span>
-                  <span>Start Time: '<%= recurringSlots[i].startTimeRecurring %>' </span>
-                  <span>End Time: '<%= recurringSlots[i].endTimeRecurring %>' </span>
-                  <span>Activity Description: '<%= recurringSlots[i].activityDescription %>' </span>
-                  <span>Number of Volunteers Needed: '<%= recurringSlots[i].numberVolunteersNeededRecurring
-                    %>' </span>
-      
-                  <section class = "secIcon">
-                    
-
-                    <span><i class="editRecurringSlot fa fa-edit" data-editRecurTimeSlot ="<%= recurringSlots[i]._id %>" data-editEventIdRecur ='<%= recurringSlots[i].eventId %>'></i></span>
-              
-                     <span><i class="trashRecurringSlot fa fa-trash" aria-hidden="true" data-deleteRecurTimeSlot ="<%= recurringSlots[i]._id %>"></i></span>
+                <tr class ="editRecurSlotsRow">
+                  <!-- <th scope="row"></th> -->
+                  <td><%= recurringSlots[i].eventName %></td>
+                  <td><%= recurringSlots[i].recurringName %></td>
+                  <td><%= recurringSlots[i].startDate %></td>
+                  <td><%= recurringSlots[i].endDate%></td>
+                  <td><%= recurringSlots[i].recurringDay%></td>
                   
-                  </section>
-      
-                </li>
-              <% } %>
-            </ul>   
+                  <td><%= recurringSlots[i].startTimeRecurring %></td>
+                  <td><%= recurringSlots[i].endTimeRecurring %></td>
+                  <td><%= recurringSlots[i].activityDescription %></td>
+                  <td><%= recurringSlots[i].numberVolunteersNeededRecurring %></td>
+                  
+                  
+                  
+                  <td class = "secIcons">
+                    
+                    <span><i class="editRecurringSlot fa fa-edit" data-editRecurTimeSlot ="<%= recurringSlots[i]._id %>" data-editEventIdRecur ='<%= recurringSlots[i].eventId %>'></i></span>
+                    
+                    <span><i class="trashRecurringSlot fa fa-trash" aria-hidden="true" data-deleteRecurTimeSlot ="<%= recurringSlots[i]._id %>"></i></span>
+                    
+                  </td>
+                </tr>
+                
+                <% } %>
+              </tbody>
+            </table>
+            
           </section>
-    <% } %>
-
-    <% if (user.local.email) { %>
-  
-        <div class="modal">
-          <div class="modal-header">
-           <span class="close-btn">&times;</span>
-           <h1>Edit Recurring Time Slot</h1>
-         </div>
-         <div class="modal-content">
-           
-           <form action ="/editRecurringSlots" method ="POST">
-
-            <p>Name</p>
-            <input type="text" name ="editRecurringSlotName" value = "" class = "editRecurringSlotName">
+          <% } %>
+        </header>
+        
+        <% if (user.local.email) { %>
+          
+          <div class="modal">
+            <div class="modal-header">
+              <span class="close-btn">&times;</span>
+              <h1></h1>
+            </div>
+            <div class="modal-content">
               
-            <p>Start Date</p>
-            <input type="date" name ="startDate" value = "" class = "editRecurringSlotStartDate">
-            <i class="fas fa-calendar-alt"></i>
-
-            <p>End Date</p>
-            <input type="date" name ="endDate" value = "" class = "editRecurringSlotEndDate">
-            <i class="fas fa-calendar-alt"></i>
-
-            <select name="recurringDay" class ="recurringDay">
-                <option value="" selected></option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-              </select>
-       
-            <p>Start Time:</p>
-            <input type="time" name="startTimeRecurring" class="editRecurringSlotStartTime" 
-            min="00:00" max="24:00">
-      
-            <p>End Time:</p>
-            <input type="time" name="endTimeRecurring" class="editRecurringSlotEndTime" 
-            min="00:00" max="24:00">
-      
-            <p>Activity Description</p>
-            <textarea rows="3" name ="activityDescriptionRecurring" class = "editRecurringSlotActDescription" value =""></textarea>
-      
-            <p>Volunteers Needed:</p>
-            <input type="number" name="numberVolunteersNeededRecurring" class="editRecurringSlotNumVolunteersNeeded">
-      
-            <input type="hidden" name ="editEventIdRecur" class = "editEventIdRecur">
-      
-            <input type="hidden" name ="editRecurringId" class = "editRecurringId">
-       
-            <button class ="buttonEditedRecurringDetails">Save New Details</button>
-      
-          </form>
-        </div>
-        <div class="modal-footer">
-           <h2></h2>
-        </div>
-       </div>
-      <% } %>
-
-      <% if( typeof user !== 'undefined' ) { %>
-        <% console.log('user loggedin') %>
-      
+              <form action ="/editRecurringSlots" method ="POST" class ="formEditRecurringSlots">
+                
+                <section class ="secEditRecurSlotsNames">
+                  
+                  <section>
+                    
+                    <p>Event Name</p>
+                    <input type="text" name ="editEventNameRecur" value = "" class = "editRecurringEventName">
+                  </section>
+                  
+                  <section>
+                    
+                    <p>Recurring Slot Name</p>
+                    <input type="text" name ="editRecurringSlotName" value = "" class = "editRecurringSlotName">
+                  </section>
+                  
+                </section>
+                
+                <section class ="formEditRecurringSlotsDates">
+                  
+                  <section>
+                    
+                    <p>Start Date</p>
+                    <input type="date" name ="startDate" value = "" class = "editRecurringSlotStartDate">
+                    <i class="fas fa-calendar-alt"></i>
+                  </section>
+                  
+                  <section>
+                    
+                    <p>End Date</p>
+                    <input type="date" name ="endDate" value = "" class = "editRecurringSlotEndDate">
+                    <i class="fas fa-calendar-alt"></i>
+                    
+                  </section>
+                  
+                  <section>
+                    <p>Recurring Day</p>
+                    <select name="recurringDay" class ="recurringDay">
+                      <option value="" selected></option>
+                      <option value="Monday">Monday</option>
+                      <option value="Tuesday">Tuesday</option>
+                      <option value="Wednesday">Wednesday</option>
+                      <option value="Thursday">Thursday</option>
+                      <option value="Friday">Friday</option>
+                      <option value="Saturday">Saturday</option>
+                      <option value="Sunday">Sunday</option>
+                    </select>
+                    
+                  </section>
+                  
+                </section>
+                
+                
+                <section class = "secEditRecurSlotsTimes">
+                  <section>
+                    <p>Start Time:</p>
+                    <input type="time" name="startTimeRecurring" class="editRecurringSlotStartTime" 
+                    min="00:00" max="24:00">
+                  </section>
+                  
+                  <section> 
+                    
+                    <p>End Time:</p>
+                    <input type="time" name="endTimeRecurring" class="editRecurringSlotEndTime" 
+                    min="00:00" max="24:00">
+                    
+                  </section>
+                  
+                </section>
+                
+                <p>Activity Description</p>
+                <textarea rows="1" name ="activityDescriptionRecurring" class = "editRecurringSlotActDescription" value =""></textarea>
+                
+                <p>Volunteers Needed:</p>
+                <input type="number" name="numberVolunteersNeededRecurring" class="editRecurringSlotNumVolunteersNeeded">
+                
+                <input type="hidden" name ="editEventIdRecur" class = "editEventIdRecur">
+                
+                <input type="hidden" name ="editRecurringId" class = "editRecurringId">
+                
+                <button class ="buttonEditedRecurringDetails">Save New Details</button>
+                
+              </form>
+            </div>
+            <div class="modal-footer">
+              <h2></h2>
+            </div>
+          </div>
+          <% } %>
+          
+          
+          <!-- Footer-->
+          <footer class="bg-light py-5">
+            <div class="container"><div class="small text-center text-muted">2021 - The Sign Up Cube</div></div>
+          </footer>
+          <!-- Bootstrap core JS-->
+          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+          <!-- Third party plugin JS-->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+          <!-- Core theme JS-->
+          
+          <script type="text/javascript" src="main.js"></script>
+          <script src="bootstrap-editRecurring/js/scripts.js"></script>
+        </body>
+        </html>
         
-        <button class ="buttonLogOut">LOG OUT</button>
-       
         
-      <% } %>
-
-    <script type="text/javascript" src="main.js"></script>
-  </body>
-</html>
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        

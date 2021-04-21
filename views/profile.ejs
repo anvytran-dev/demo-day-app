@@ -1,108 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="bootstrap-profile/assets/img/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
-        <!-- Third party plugin CSS-->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="bootstrap-profile/css/styles.css" rel="stylesheet" />
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="/profile">The Sign Up Cube</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/createSignUpSheet">Create Sign Up Sheet</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewCreatedEvents">Edit My Sign Up Sheet</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">View My Sign Up Sheets</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewVolunteering">View My Volunteering Activity</a></li>
-                        <% if( typeof user !== 'undefined' ) { %>
-                            <% console.log('user loggedin') %>
-                          
-                            
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger buttonLogOut">LOG OUT</a></li>
-                           
-                            
-                          <% } %>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>The Sign Up Cube</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="bootstrap-profile/assets/img/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap" rel="stylesheet">
+    <!-- Third party plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="bootstrap-profile/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/profile">The Sign Up Cube</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/createSignUpSheet">Create Sign Up Sheet</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewCreatedEvents">Edit My Sign Up Sheet</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">View My Sign Up Sheets</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewVolunteering">View My Volunteering Activity</a></li>
+                    <% if( typeof user !== 'undefined' ) { %>
+                        <% console.log('user loggedin') %>
+                        
+                        
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger buttonLogOut">LOG OUT</a></li>
+                        
+                        
+                        <% } %>
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Masthead-->
         <header class="masthead">
-
+            
             <section class ="sectionsProfile">
-
+                
                 <section class ="secProfileTop">
-
-                    <section class="secProfileCreate">
-
-                        <form action = "/createSignUpSheet" method ="POST">
-                            
-                            <button class ="goToCreateSignUpSheet" type ="submit">Create a Sign Up Sheet</button>
-    
-                        </form>
-
-                    </section>
-
-                    <section class="secProfileEditEvents">
-
-                        <form action = "/viewCreatedEvents" method ="GET">
                     
-                            <button class ="goToCreatetEvents" type ="submit">Edit My Sign Up Sheets</button>
-    
-                        </form>
-
+                    <section class="secProfileCreate goToCreateSignUpSheet">
+                        
+                        
+                        
+                        <button class ="buttonProfileSecs" type ="">Create a Sign Up Sheet</button>
+                        
+                        
+                        
                     </section>
-
+                    
+                    <section class="secProfileEditEvents goToCreatedEvents">
+                        
+                        
+                        <button class ="buttonProfileSecs" type ="">Edit My Sign Up Sheets</button>
+                        
+                        
+                        
+                    </section>
+                    
                 </section>
-
+                
                 <section class ="secProfileBottom">
-
-                    <section class="secProfileViewSheets">
-    
-                        <form action = "/viewCreatedEvents" method ="GET">
                     
-                            <button class ="goToCreatetEvents" type ="submit">View My Sign Up Sheets</button>
-    
-                        </form>
-
+                    <section class="secProfileViewSheets viewPublishedSheets">
+                        
+                        <button class ="buttonProfileSecs" type ="">View My Sign Up Sheets</button>
+                        
+                        
                     </section>
-
-                    <section class="secProfileViewVolunteering">
-    
-                        <form action = "/viewVolunteering" method ="GET">
                     
-                            <button class ="goToViewVolunteering" type ="submit">View My Volunteering</button>
-    
-                        </form>
+                    <section class="secProfileViewVolunteering goToViewVolunteering">
+                        
+                        <button class ="buttonProfileSecs" type ="">View My Volunteering</button>
+                        
+                        
                     </section>  
                     
                 </section>
-
+                
             </section>
             
         </header>
-
-      
+        
+        
         <!-- Footer-->
         <footer class="bg-light py-5">
-            <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Start Bootstrap</div></div>
+            <div class="container"><div class="small text-center text-muted">2021 - The Sign Up Cube</div></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -114,4 +110,4 @@
         <script src="main.js"></script>
         <script src="bootstrap-profile/js/scripts.js"></script>
     </body>
-</html>
+    </html>

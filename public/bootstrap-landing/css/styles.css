@@ -475,8 +475,9 @@ mark,
 }
 
 .img-fluid {
-  max-width: 100%;
-  height: auto;
+  width: 437px;
+  height: 291px ;
+  
 }
 
 .img-thumbnail {
@@ -2438,7 +2439,7 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #f4623a;
+  background-color: #dc61d8;
   border-color: #f4623a;
 }
 .btn-primary:hover {
@@ -9771,11 +9772,11 @@ button.bg-dark:focus {
 }
 
 .text-white {
-  color: rgb(255, 255, 255) !important;
+  color: white !important;
 }
 
 .text-primary {
-  color: #f4623a !important;
+  color: #dc61d8 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -9986,7 +9987,7 @@ html {
 hr.divider {
   max-width: 3.25rem;
   border-width: 0.2rem;
-  border-color: #f4623a;
+  border-color: #cc4bde;
 }
 
 hr.light {
@@ -10141,5 +10142,5 @@ header.masthead h1 {
 }
 
 .text-white-75 {
-  color: rgba(255, 255, 255, 0.75);
+  color: white;
 }
