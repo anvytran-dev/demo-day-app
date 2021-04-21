@@ -173,7 +173,26 @@ app.get('/publicSignUpSheetList', function (req, res) {
 
 });
 
-  //Get 'viewVolunteering.ejs' page
+
+// GET VIEW PUBLISHED SIGN UP SHEETS page
+
+app.get('/viewPublishedSheets', function (req, res) {
+
+  db.collection('signUpSheet').find({email: req.user.local.email}).toArray((err, result) => {
+    console.log('published')
+    console.log(result)
+
+    if (err) return console.log(err)
+      res.render('publishedSheets.ejs', {
+        user: req.user,
+        publishedSheet: result,
+
+      })
+
+  }) 
+})
+
+//Get 'viewVolunteering.ejs' page
 
   app.get('/viewVolunteering', function (req, res) {
 

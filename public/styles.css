@@ -1,5 +1,10 @@
+
 .fa-trash:before {
     content: "\f014";
+  }
+
+  body{
+    font-size: 62.5%;
   }
 
   .secAddDatesAndTime{
@@ -112,13 +117,13 @@ header > h1{
 .days{
     display: grid;
     grid-template-columns: repeat(7,1fr);
-   
     grid-gap: 1em;
     border: 1px solid black;
 }
 
 .date{
-  height: 14vh;
+  display:flex;
+  height: 133px;
   text-align: center;
   border-right: 1px solid black;
 }
@@ -211,7 +216,7 @@ textarea{
   font-family: 'Noto Sans', sans-serif;
 }
 
-.viewCreatedEventsRows, .editRecurSlotsRow{
+.viewCreatedEventsRows, .editRecurSlotsRow, .beige{
   background-color: beige;
 }
 
@@ -229,7 +234,7 @@ textarea{
 }
 
 
-.hideForm{
+.hideForm, .hideMonth, .hideYear{
   display: none;
 }
 
@@ -283,6 +288,23 @@ textarea{
 
 .secEditRecurSlotsNames > section {
   width: 50%;
+}
+
+.buttonCancelSignUp{
+  border-radius: 10%;
+}
+
+.calendarTitle{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: left;
+  width: 100%;
+}
+
+.buttonToViewMore{
+  font-size: .5rem;
+  margin-top:auto;
 }
 
 

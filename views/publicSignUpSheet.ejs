@@ -1,42 +1,90 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
   <title>The Sign Up Cube</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="bootstrap-viewCalendar/assets/img/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+  <!-- Third party plugin CSS-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="bootstrap-viewCalendar/css/styles.css" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  
-  <header>
-    <h1>welcome to my calendar</h1>
-    <h3 class ="displayCurrentMonth "data-curMonth ="<%= currentMonthNum%>"><%= months[currentMonthNum] %></h3>
+<body id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/profile">The Sign Up Cube</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/createSignUpSheet">Create Sign Up Sheet</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewCreatedEvents">Edit My Sign Up Sheet</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewPublishedSheets">View My Sign Up Sheets</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/viewVolunteering">View My Volunteering Activity</a></li>
+          <% if( typeof user !== 'undefined' ) { %>
+            <% console.log('user loggedin') %>
+            
+            
+            <li class="nav-item"><a class="nav-link js-scroll-trigger buttonLogOut">LOG OUT</a></li>
+            
+            
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+
+      <section class ="calendarTitle">
+
+        <h3><button class = "buttonToViewList" data-eventIdView="<%= signUpResults._id%>">View List</button></h3>
+
+        <h1><%=signUpResults.eventTitle%></h1>
+
+        <button class ="buttonToViewList" data-eventIdView = '<%=signUpResults._id %>'>Sign Up</button> 
+
+      </section>
+      <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+
+        
+        <h3 class ="displayCurrentMonth hideMonth "data-curMonth ="<%= currentMonthNum%>"><%= months[currentMonthNum] %></h3>
     
-    <h2>year <%= year %></h2>
-    <button class ="buttonLeftArrow"><i class="fa fa-arrow-left"></i></button>
-    <button class ="buttonRightArrow"><i class="fa fa-arrow-right"></i></button>
-    <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-  </header>
-  <% 
-  console.log(signUpResults._id) %> 
-  <h3><button class = "buttonToViewList" data-eventIdView="<%= signUpResults._id%>">View List</button></h3>
-  <div class="calendar-container">
-    <% for(let month = 0;month < calendar.length;month++) { %>
+        <h2 class ="hideYear">year <%= year %></h2>
+
+
+
+        <div class="calendar-container">
+        <% for(let month = 0;month < calendar.length;month++) { %>
       
-      <div class="month-container <% if(month != currentMonthNum) { %> hidden <% } %>" id="<%= months[month] %>" data-month="<%= month %>"> 
-        <h3 style="text-align: center;"> <%= months[month] %> </h3>
+        <div class="month-container <% if(month != currentMonthNum) { %> hidden <% } %>" id="<%= months[month] %>" data-month="<%= month %>"> 
+          <h3 style="text-align: center;"> <%= months[month] %> <%= year %> </h3>
+
+          <button class ="buttonLeftArrow"><i class="fa fa-arrow-left"></i></button>
+          <button class ="buttonRightArrow"><i class="fa fa-arrow-right"></i></button>
         
         
-        <div class="day-of-week">
-          <span>Sun</span><span>Mon</span><span>Tue</span><span>
+          <div class="day-of-week">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>
             Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
           </div>
           
           <% for(let x = 0;x < calendar[month].length;x++) { %>
-            <div class="days">
-              <% for(let y = 0;y < calendar[month][x].length;y++) { %>
+          <div class="days beige">
+            <% for(let y = 0;y < calendar[month][x].length;y++) { %>
                 
-                <% const date = year + '-' + (month <  9 ? '0' : '' )+ (month+1) + '-' + (calendar[month][x][y] < 10 ? '0' : '') + calendar[month][x][y]  %>
+              <% const date = year + '-' + (month <  9 ? '0' : '' )+ (month+1) + '-' + (calendar[month][x][y] < 10 ? '0' : '') + calendar[month][x][y]  %>
                 
                 <% const slotsForDate = timeSlotResults.filter( (timeSlot) => date === timeSlot.date) || [] %>
                 <div class="date">
@@ -47,68 +95,67 @@
                       <% for(let i = 0; i < slotsForDate.length; i++) { %>
                         <li><%= slotsForDate[i].activityDescription %></li>
                         <% } %>
-                        
-                        <% if(slotsForDate.length > 0) {%> <button class ="buttonToViewMore" data-slotDate= '<%= date %>' data-eventIdViewMore="<%= signUpResults._id%>"
-                          >View More</button>
-                          <% } %>
-                          <% if(slotsForDate.length > 0) {%> <button class ="buttonToViewList" data-eventIdView = '<%=signUpResults._id %>'
-                            >Sign Up</button> 
-                            <% } %>
-                          </ul>
+                      </ul>
                           
-                        </div>
-                      </div>
-                      
-                      <% } %>
                     </div>
+
+                    <% if(slotsForDate.length > 0) {%>      
+                      <button class ="buttonToViewMore" data-slotDate= '<%= date %>' data-eventIdViewMore="<%= signUpResults._id%>">View More</button>
                     <% } %>
+  
                   </div>
-                  
-                  <% } %>
-                </div>
+                      
+            <% } %>
+          </div>
+        <% } %>
+        </div>
+      <% } %>
+      </div>
+    </div>
+  </header>
                 
-                <div class="modal">
-                  <div class="modal-header">
-                    <span class="close-btn">&times;</span>
-                    <h1>Sign Up</h1>
-                  </div>
-                  <div class="modal-content">
-                    
-                    <table class="table">
-                      <thead class="thead-dark">
-                        <tr class = "trHead">
-                          <th scope="col">Date</th>
-                          <th scope="col">Start Time</th>
-                          <th scope="col">End Time</th>
-                          <th scope="col">Location/Activity Description</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tableSlotsForDay">
-                      </tbody>
-                    </table>
-                    
-                    
-                    
-                  </div>
-                  <div class="modal-footer">
-                    <h2></h2>
-                  </div>
-                </div>
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-btn">&times;</span>
+      <h1>Sign Up</h1>
+    </div>
+    <div class="modal-content">
+      
+      <table class="table">
+        <thead class="thead-dark">
+          <tr class = "trHead">
+            <th scope="col">Date</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+            <th scope="col">Location/Activity Description</th>
+          </tr>
+        </thead>
+        <tbody id="tableSlotsForDay">
+        </tbody>
+      </table>
+    
+      </div>
+      <div class="modal-footer">
+        <h2></h2>
+      </div>
+    </div>    
                 
                 
-                
-                
-                
-                
-                <script type="text/javascript" src="main.js"></script>
-
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-
-                
-              </body>
-              </html>
+    <!-- Footer-->
+    <footer class="bg-light py-5">
+      <div class="container"><div class="small text-center text-muted">2021 - The Sign Up Cube</div></div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="bootstrap-viewCalendar/js/scripts.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
               
               
               

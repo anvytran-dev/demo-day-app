@@ -721,5 +721,24 @@ Array.from(buttonRecurringSlotsToggle ).forEach(element => {
   
 })
 
+const buttonPublishSheet = document.getElementsByClassName('buttonPubSheet')
+
+Array.from(buttonPublishSheet).forEach(element => {
+
+  let publishSheetId = element.getAttribute('data-publishedId')
+
+  element.addEventListener('click', getPublishedSheet)
+
+  function getPublishedSheet() {
+
+    publishSheetId = publishSheetId.toString()
+
+    console.log(publishSheetId)
+
+    window.location.href = "/publicSignUpSheet?id=" + publishSheetId
+
+  }
+})
+
 
 
