@@ -79,35 +79,44 @@
             <span>Sun</span><span>Mon</span><span>Tue</span><span>
             Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
           </div>
-          
-          <% for(let x = 0;x < calendar[month].length;x++) { %>
           <div class="days beige">
+          <% for(let x = 0;x < calendar[month].length;x++) { %>
+          
             <% for(let y = 0;y < calendar[month][x].length;y++) { %>
                 
               <% const date = year + '-' + (month <  9 ? '0' : '' )+ (month+1) + '-' + (calendar[month][x][y] < 10 ? '0' : '') + calendar[month][x][y]  %>
                 
                 <% const slotsForDate = timeSlotResults.filter( (timeSlot) => date === timeSlot.date) || [] %>
                 <div class="date">
+                 <% if(calendar[month][x][y]) { %> 
+                  <span class ="numberOfDayCalendar"><%= calendar[month][x][y] %></span>
+                <% } %>
+
+                <div class ="divListAndButton">
                   
-                  <div id="<%= date %>">
-                    <%= calendar[month][x][y] %>
+                  <div class ="divUlList" id="<%= date %>">
+                    
                     <ul class ="ulSlots">
                       <% for(let i = 0; i < slotsForDate.length; i++) { %>
                         <li><%= slotsForDate[i].activityDescription %></li>
                         <% } %>
                       </ul>
                           
-                    </div>
+                  </div>
 
-                    <% if(slotsForDate.length > 0) {%>      
+                    
+
+                    <% if(slotsForDate.length > 0) {%>   
+                    <div class ="divButtonViewMore">   
                       <button class ="buttonToViewMore" data-slotDate= '<%= date %>' data-eventIdViewMore="<%= signUpResults._id%>">View More</button>
+                    </div>
                     <% } %>
   
                   </div>
-                      
+                </div>    
             <% } %>
-          </div>
         <% } %>
+        </div>
         </div>
       <% } %>
       </div>
