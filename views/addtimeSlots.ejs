@@ -63,11 +63,11 @@
       </section>
       <section class ="secAddDatesAndTime">
         
-        <section class ="secAddTimeSlots">
+        <section class ="secAddTimeSlots hideForm">
 
         
           
-          <form action ="/saveTimeSlots?id=<%= eventDetails._id %>" method ="POST" class ="addTimeSlots hideForm" id ="formAddTimeSlot">
+          <form action ="/saveTimeSlots?id=<%= eventDetails._id %>" method ="POST" class ="addTimeSlots" id ="formAddTimeSlot">
             
             <section class ="eventName">
               
@@ -119,9 +119,9 @@
           
         </section>
         
-        <section class ="addRecurringTimes">
+        <section class ="secAddRecurringTimes hideForm">
           
-          <form action ="/addRecurringSlots?id=<%= eventDetails._id %>" method ="POST" class ="formAddRecurringTimes hideForm" id ="formAddRecurringSlots">
+          <form action ="/addRecurringSlots?id=<%= eventDetails._id %>" method ="POST" class ="formAddRecurringTimes" id ="formAddRecurringSlots">
             
             <section class ="eventNameRecurring">
               

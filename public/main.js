@@ -686,15 +686,15 @@ Array.from(getViewVolunteering).forEach(element => {
 //Toggle Button: Add Individual Time Slot 
 
 const buttonAddTimeSlot = document.getElementsByClassName('buttonAddTimeSlotToggle')
-const formAddIndividualTimeSlot = document.querySelector('.addTimeSlots')
+const secAddTimeSlots = document.querySelector('.secAddTimeSlots')
 
 Array.from(buttonAddTimeSlot).forEach(element => {
   console.log(element)
   element.addEventListener('click', () => {
     
-    formAddRecurringSlots.classList.add('hideForm')
+    secAddRecurringTimes.classList.add('hideForm')
 
-    formAddIndividualTimeSlot.classList.toggle('hideForm')
+    secAddTimeSlots.classList.toggle('hideForm')
     
 
   })
@@ -705,15 +705,15 @@ Array.from(buttonAddTimeSlot).forEach(element => {
 //Toggle Button: Add Recurring Time Slots
 
 const buttonRecurringSlotsToggle = document.getElementsByClassName('buttonAddRecurringSlotsToggle')
-const formAddRecurringSlots = document.querySelector('.formAddRecurringTimes')
+const secAddRecurringTimes = document.querySelector('.secAddRecurringTimes')
 
 Array.from(buttonRecurringSlotsToggle ).forEach(element => {
   console.log(element)
   element.addEventListener('click', () => {
 
-    formAddIndividualTimeSlot.classList.add('hideForm')
+    secAddTimeSlots.classList.add('hideForm')
 
-    formAddRecurringSlots.classList.toggle('hideForm')
+    secAddRecurringTimes.classList.toggle('hideForm')
     
 
   })

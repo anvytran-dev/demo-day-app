@@ -3,9 +3,7 @@
     content: "\f014";
   }
 
-  body{
-    font-size: 62.5%;
-  }
+
 
   .secAddDatesAndTime{
     display: flex;
@@ -18,6 +16,7 @@
 
   .secAddTimeSlots{
     width: 100%;
+    
     
   }
 
@@ -119,6 +118,7 @@ header > h1{
     grid-template-columns: repeat(7,1fr);
     grid-gap: 1em;
     border: 1px solid black;
+    grid-auto-columns: 10px;
 }
 
 .date{
@@ -229,7 +229,8 @@ textarea{
   padding-top: 4%;
 }
 
-.addRecurringTimes{
+.secAddRecurringTimes{
+  
   width: 100%;
 }
 
