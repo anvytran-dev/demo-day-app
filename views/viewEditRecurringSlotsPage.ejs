@@ -77,8 +77,8 @@
                   <td><%= recurringSlots[i].endDate%></td>
                   <td><%= recurringSlots[i].recurringDay%></td>
                   
-                  <td><%= recurringSlots[i].startTimeRecurring %></td>
-                  <td><%= recurringSlots[i].endTimeRecurring %></td>
+                  <td><%= timeConverter(recurringSlots[i].startTimeRecurring) %></td>
+                  <td><%= timeConverter(recurringSlots[i].endTimeRecurring) %></td>
                   <td><%= recurringSlots[i].activityDescription %></td>
                   <td><%= recurringSlots[i].numberVolunteersNeededRecurring %></td>
                   

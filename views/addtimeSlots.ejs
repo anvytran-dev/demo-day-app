@@ -226,8 +226,9 @@
               <tr>
                 <!-- <th scope="row"></th> -->
                 <td><%= timeSlots[i].date %></td>
-                <td><%= timeSlots[i].startTime %></td>
-                <td><%= timeSlots[i].endTime %></td>
+                
+                <td><%= timeConverter(timeSlots[i].startTime) %></td>
+                <td><%=  timeConverter(timeSlots[i].endTime)%></td>
                 <td><%= timeSlots[i].activityDescription %></td>
                 <td><%= timeSlots[i].numberVolunteersNeeded %></td>
                 <td class = "secIcons">

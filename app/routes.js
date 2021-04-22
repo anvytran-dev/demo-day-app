@@ -7,6 +7,8 @@ const nodemailer = require("nodemailer");
 
 const calendar = require("../config/calendar-config.js");
 
+const timeConverter = require("../config/time-helper.js")
+
 module.exports = function (app, passport, db) {
 
   // normal routes ===============================================================
@@ -57,12 +59,14 @@ module.exports = function (app, passport, db) {
     db.collection('signUpSheet').findOne({ _id: ObjectId(req.query.id) }, (err, eventDetails) => {
 
       db.collection('timeSlots').find({ eventId: req.query.id }).sort({date: 1}).toArray((error, slots) => {
+
         if (err) return console.log(err)
         console.log(slots)
         res.render('addTimeSlots.ejs', {
           user: req.user,
           eventDetails: eventDetails,
-          timeSlots: slots
+          timeSlots: slots,
+          timeConverter: timeConverter
         })
       })
     })
@@ -123,6 +127,7 @@ app.get('/publicSignUpSheet', function (req, res) {
         calendar: calendar(year),months,year,
         currentMonthNum: currentMonthNum,
         user: req.user,
+        timeConverter: timeConverter
       })
     }).catch((error) => {
       console.log(error)
@@ -201,6 +206,7 @@ app.get('/viewPublishedSheets', function (req, res) {
       res.render('viewVolunteering.ejs', {
         user: req.user,
         volunteeringSlots: result,
+        timeConverter, timeConverter
 
       })
     })
@@ -381,7 +387,8 @@ app.get('/viewPublishedSheets', function (req, res) {
       if (err) return console.log(err)
       res.render('viewEditRecurringSlotsPage.ejs', {
         recurringSlots: results,
-        user: req.user
+        user: req.user,
+        timeConverter: timeConverter
       })
     })
 

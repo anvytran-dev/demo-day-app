@@ -154,6 +154,8 @@ header > h1{
 
 .ulSlots{
   padding-left: 23px;
+  overflow: hidden;
+  margin: 0px;
 }
 
 .divButtonViewMore{
@@ -166,11 +168,14 @@ header > h1{
   flex-direction: column;
   height: 100%;
   padding: 25px;
+  padding-right: 10px;
 }
 
 .divUlList{
   display: flex;
   flex: 1 0 auto;
+  height: 95%;
+  overflow: hidden;
 }
 
 

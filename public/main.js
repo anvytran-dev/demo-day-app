@@ -1,4 +1,8 @@
+function convertTime(time) {
 
+  return new Date(`2020-01-01T${time}:00`).toLocaleString('en-US', {hour: 'numeric', minute:'numeric', hour12: true} )
+
+}
 
 //'viewCreatedEvents.ejs' EDIT BUTTON
 let modal = document.getElementsByClassName("modal")
@@ -306,17 +310,6 @@ Array.from(buttonToViewMore).forEach((element) => {
       // window.location.reload(true)
       
       document.querySelectorAll('.thisIsRow').forEach(e => e.remove())
-      
-      // for(i = 0; i < data.length; i++) {
-      //   console.log(i)
-      //   console.log('fun')
-
-      //   let newRow = tableBody.insertRow(-1)
-
-
-
-        
-      // }
 
       function addRow() {
         // Get a reference to the table
@@ -334,13 +327,26 @@ Array.from(buttonToViewMore).forEach((element) => {
 
             if(i === 0) {
               let newText = document.createTextNode(data[index].date);
+              
               newCell.appendChild(newText);
             } else if ( i === 1) {
-              let newText = document.createTextNode(data[index].startTime);
+              let newStartTime = data[index].startTime.toString()
+       
+              newStartTime = convertTime(newStartTime)
+
+              let newText = document.createTextNode(newStartTime);
+              
+   
               newCell.appendChild(newText);
 
+
+
             } else if ( i === 2) {
-              let newText = document.createTextNode(data[index].endTime);
+              let newEndTime = data[index].endTime.toString()
+
+              newEndTime = convertTime(newEndTime)
+
+              let newText = document.createTextNode(newEndTime);
               newCell.appendChild(newText);
 
             } else if ( i === 3) {

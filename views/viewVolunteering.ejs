@@ -67,8 +67,8 @@
                     <!-- <th scope="row"></th> -->
                     <td><%= volunteeringSlots[i].eventName %></td>
                     <td><%= volunteeringSlots[i].slotDate %></td>
-                    <td><%= volunteeringSlots[i].startTime%></td>
-                    <td><%= volunteeringSlots[i].endTime %></td>
+                    <td><%= timeConverter(volunteeringSlots[i].startTime)%></td>
+                    <td><%= timeConverter(volunteeringSlots[i].endTime) %></td>
                     <td><%= volunteeringSlots[i].activityDes %></td>
                     
                     <td class = "secIcons">
