@@ -170,6 +170,7 @@ app.get('/publicSignUpSheetList', function (req, res) {
       calendar: calendar(year),months,year,
       currentMonthNum: currentMonthNum,
       user: req.user,
+      timeConverter, timeConverter
     })
   }).catch((error) => {
     console.log(error)

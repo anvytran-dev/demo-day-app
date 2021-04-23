@@ -72,8 +72,8 @@
                             <tr class ="beige">
                                 <!-- <th scope="row"></th> -->
                                 <td><%= timeSlotResults[i].date %></td>
-                                <td><%= timeSlotResults[i].startTime %></td>
-                                <td><%= timeSlotResults[i].endTime %></td>
+                                <td><%= timeConverter(timeSlotResults[i].startTime) %></td>
+                                <td><%= timeConverter(timeSlotResults[i].endTime) %></td>
                                 <td><%= timeSlotResults[i].activityDescription %></td>
                                 <td><%= timeSlotResults[i].numberVolunteersNeeded %></td>
                                 <td>
