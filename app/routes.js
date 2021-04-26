@@ -789,7 +789,7 @@ app.get('/viewPublishedSheets', function (req, res) {
       // send mail with defined transport object
       let info = await transporter.sendMail({
         from: `"${req.body.name}" <${req.body.serSendEmail}>`, // sender address
-        to: req.body.email.join(', '), // list of receivers
+        to: req.body.email, // list of receivers
         subject: "Hello ✔", // Subject line
         text: req.body.message, // plain text body
         // html: "<b>Hello world?</b>", // html body

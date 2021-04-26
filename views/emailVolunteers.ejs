@@ -59,18 +59,12 @@
 
 						<% let emailSet = new Set(emailArray) %>
 						<% let uniqueArray = [...emailSet] %>
+
+						<% console.log(uniqueArray) %>
 						
-
-						<% for(let i=0; i < uniqueArray.length; i++) { %>
-
-							<input class="input100" type="text" name="email" placeholder="Email"
-
-							value = <%= uniqueArray[i] %>
-							>
-
-							
-						<% } %>
-
+						<input class="input100" type="text" name="email" placeholder="Email"
+						value = '<%= uniqueArray.join(", ") %>'
+						>
 
 
 
