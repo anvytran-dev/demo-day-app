@@ -104,13 +104,15 @@ header > h1{
 .day-of-week{
     display: grid;
     grid-template-columns: repeat(7,1fr);
-   
     grid-gap: 1em;
+    height: 3rem;
 }
 
 .day-of-week > span{
     height: 14vh;
     text-align: center;
+    color: black;
+    font-size: 2rem;
 }
 
 .days{
@@ -184,10 +186,11 @@ header > h1{
 }
 #formEditEvent p{
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 #formEditEvent input, #formEditEvent textarea{
-  font-size: 14px;
+  font-size: 1.2rem;
+  width: 70%;
 }
 
 #editEventD{
@@ -218,16 +221,18 @@ textarea{
 }
 
 .buttonEditedDetails{
-  font-size: 12px;
+  font-size: 1.6rem;
   border-radius: 10%;
 }
 
 .sectionsProfile{
   display: flex;
   flex-direction: column;
-  width: 100%;
-  background: linear-gradient(to bottom, rgba(240, 193, 228, 0.8) 0%, rgba(237, 241, 238, 0.8) 100%);
+  /* width: 100%; */
+  /* background: linear-gradient(to bottom, rgba(240, 193, 228, 0.8) 0%, rgba(237, 241, 238, 0.8) 100%); */
   margin-top: 4%;
+  margin-left: 4%;
+  margin-right: 4%;
 }
 
 .secProfileTop, .secProfileBottom{
@@ -251,6 +256,30 @@ textarea{
   background-color:rgba(202, 147, 213, 0.2)
 }
 
+.secProfileCreate, .secProfileViewSheets{
+  margin-right: 4%;
+}
+.secProfileCreate {
+  margin-bottom: 5%;
+  background: url("bootstrap-profile/assets/img/yellow.jpg");
+  background-position: top;
+  
+}
+
+.secProfileEditEvents{
+  background: url("bootstrap-profile/assets/img/blue.jpg");
+  background-position: bottom;
+}
+
+.secProfileViewSheets{
+  background: url("bootstrap-profile/assets/img/purple.jpg");
+  background-position: right;
+}
+
+.secProfileViewVolunteering{
+  background: url("bootstrap-profile/assets/img/green.jpg");
+  background-position: inherit;
+}
 .date:hover {
   background-color: yellow;
 }
@@ -352,13 +381,130 @@ textarea{
   justify-content: space-around;
   text-align: left;
   width: 100%;
+  margin-top: 2%;
+  
+}
+
+.calendarTitle h1{
+  color: black;
+}
+
+.month-container h3{
+  color: white;
+  font-size: 2rem;
 }
 
 .buttonToViewMore{
   font-size: 1rem;
-  margin-top:auto;
+  margin-top: auto;
 }
 
+#viewCreatedEventsContainer{
+  /* display: flex;
+  align-items: center;
+  align-content: center; */
+  margin-top: 4%;
+
+}
+
+.viewCreatedEventsDiv{
+  padding: 0 auto;
+}
+.secPublicSignUpSheet{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+} */
+
+.buttonPubSheet{
+  border-radius: 10%;
+}
+
+#navbar-contain{
+  max-width: 90%;
+}
+
+.buttonToViewList, .buttonToViewMore{
+  border-radius: 10%;
+}
+.buttonToViewList{
+  font-size: 1.5rem;
+  height: 4rem;
+}
+
+#aSignUpCube{
+  font-size: 1.5rem;
+  
+}
+
+.displayTimeSlots{
+  margin-top: 4%;
+}
+
+.eventDetails{
+  height: 6.5rem;
+  
+}
+
+.eventDetails h2{
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+.eventDetails h3{
+  margin-bottom: 4%;
+}
+
+.tableSignUpSheet{
+  margin-top: 5%;
+}
+
+.buttonToViewCalendar{
+  border-radius: 10%;
+  font-size: 1.5rem;
+}
+
+.buttonSignUp{
+  border-radius: 10%;
+}
+
+.signUpSheetModalBox p{
+  font-size: 1.6rem;
+}
+
+.signUpSheetModalBox input{
+  margin-bottom: 3%;
+}
+
+#headerCreateEvent{
+  min-height: 74rem;
+}
+
+.focus-input2{
+  text-align: left;
+}
+
+.addTimeSlotsForm p{
+  font-size: 1.6rem;
+}
+
+.addTimeSlotsForm input, .addTimeSlotsForm textarea{
+  margin-bottom: 3%;
+  font-size: 1.2rem;
+}
+
+#tableViewVolunteering{
+  margin-top: 3%;
+}
+
+.buttonPubSheet{
+  border-radius: 10%;
+}
+
+.getRecurringTimeSlots{
+  border-radius: 10%;
+}
 
 
  

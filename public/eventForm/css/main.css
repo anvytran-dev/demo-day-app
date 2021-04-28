@@ -152,6 +152,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
+  margin-top: 2%;
   /* background: rgba(219,21,99,0.8);
   background: -webkit-linear-gradient(45deg, rgba(213,0,125,0.8), rgba(229,57,53,0.8));
   background: -o-linear-gradient(45deg, rgba(213,0,125,0.8), rgba(229,57,53,0.8));
@@ -160,7 +161,7 @@ iframe {
 }
 
 .wrap-contact2 {
-  height: 475px;
+  height: 800px;
   width: 790px;
   background: #fff;
   border-radius: 10px;
@@ -195,7 +196,7 @@ iframe {
   width: 100%;
   position: relative;
   border-bottom: 2px solid #adadad;
-  margin-bottom: 15px;
+  margin-bottom: 5%;
 }
 
 .input2 {
@@ -442,6 +443,7 @@ textarea.input2 + .focus-input2::after {
 }
 
 .inputDateEForm{
-  margin-top: 3%;
+  margin-top: 7%;
   width: 100%;
+  font-size: 1.5rem;
 }

@@ -555,22 +555,22 @@ pre code {
 
 @media (min-width: 576px) {
   .container-sm, .container {
-    max-width: 540px;
+    max-width: 100%;
   }
 }
 @media (min-width: 768px) {
   .container-md, .container-sm, .container {
-    max-width: 720px;
+    max-width: 100%;
   }
 }
 @media (min-width: 992px) {
   .container-lg, .container-md, .container-sm, .container {
-    max-width: 960px;
+    max-width: 98%;
   }
 }
 @media (min-width: 1200px) {
   .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
+    max-width: 100%;
   }
 }
 .row {
@@ -10039,13 +10039,13 @@ hr.light {
     background-color: transparent;
   }
   #mainNav .navbar-brand {
-    color: rgba(255, 255, 255, 0.7);
+    color: white;
   }
   #mainNav .navbar-brand:hover {
     color: #fff;
   }
   #mainNav .navbar-nav .nav-item .nav-link {
-    color: rgba(255, 255, 255, 0.7);
+    color: white;
     padding: 0 1rem;
   }
   #mainNav .navbar-nav .nav-item .nav-link:hover {
@@ -10086,8 +10086,8 @@ header.masthead h1 {
 }
 @media (min-width: 992px) {
   header.masthead {
-    height: 100vh;
-    min-height: 40rem;
+    height: 0;
+    min-height: 69rem;
     padding-top: 4.5rem;
     padding-bottom: 0;
   }
@@ -10144,8 +10144,13 @@ header.masthead h1 {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.sectionsProfile{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+@media (min-width: 1200px) {
+
+#createSignUpSheetNav{
+  
+    max-width: 100%;
 }
+
+}
+
+

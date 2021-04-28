@@ -36,7 +36,9 @@
       rel="stylesheet"
     />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="bootstrap-profile/css/styles.css" rel="stylesheet" />
+    <link href="bootstrap-profile/css/styles.css" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet"/>
+    
     <!--===============================================================================================-->
     <link
       rel="icon"
@@ -80,7 +82,7 @@
       class="navbar navbar-expand-lg navbar-light fixed-top py-3"
       id="mainNav"
     >
-      <div class="container">
+      <div id ="createSignUpSheetNav" class="container">
         <a class="navbar-brand js-scroll-trigger" href="/profile"
           >The Sign Up Cube</a
         >
@@ -130,7 +132,7 @@
       </div>
     </nav>
     <!-- Masthead-->
-    <header class="masthead">
+    <header id ="headerCreateEvent" class="masthead">
 
       <div
         class="bg-contact2"
@@ -146,7 +148,7 @@
                 class="wrap-input2 validate-input "
                 data-validate="Name is required"
               >
-                <p class="focus-input2" data-placeholder="NAME"></p>
+                <p class="focus-input2" data-placeholder="">NAME</p>
                  <input class="inputDateEForm" type="text" name="name" placeholder="" />
                  
               </div>
@@ -155,7 +157,7 @@
                 class="wrap-input2 validate-input"
                 data-validate="Event Name is required"
               >
-                <p class="focus-input2" data-placeholder="EVENT NAME"></p>
+                <p class="focus-input2" data-placeholder="">EVENT NAME</p>
                   <input class="inputDateEForm" type="text" name="eventTitle" placeholder="" />
 
               </div>
@@ -164,7 +166,7 @@
                 class="wrap-input2 validate-input"
                 data-validate="Event START DATE is required"
               >
-                <p class="focus-input2" data-placeholder="START DATE"></p>
+                <p class="focus-input2" data-placeholder="">START DATE</p>
                   <input class="inputDateEForm" type="date" name="startDate" placeholder="start" required />
                   
                 
@@ -174,7 +176,7 @@
                 class="wrap-input2 validate-input"
                 data-validate="Event END DATE is required"
               >
-                <p class="focus-input2" data-placeholder="END DATE"></p>
+                <p class="focus-input2" data-placeholder="">END DATE</p>
                   <input class="inputDateEForm" type="date" name="endDate" required />
                   
               
@@ -184,7 +186,7 @@
                 class="wrap-input2 validate-input"
                 data-validate="Event Description is required"
               >
-                <p class="focus-input2" data-placeholder="Event Description"></p>
+                <p class="focus-input2" data-placeholder="">Event Description</p>
                   <input class="inputDateEForm" rows="3" name="eventDescription">
 
               </div>
@@ -204,7 +206,7 @@
       </div>
     </header>
 
-    <!-- Footer-->
+
 
     <!-- Bootstrap core JS-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
