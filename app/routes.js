@@ -516,13 +516,11 @@ app.get('/viewPublishedSheets', function (req, res) {
 
 
 
-  //SAVE RECURRING TIMESLOTS TO DATABASE
+//SAVE RECURRING TIMESLOTS TO DATABASE
 
   app.post('/addRecurringSlots', (req, res, next) => {
 
-    console.log('000')
-    console.log(req.body)
-
+//After, the creator fills out the form to create a recurring time slot, that data is saved to the database using the save method.
 
     db.collection('addRecurringSlots').save(
 
@@ -545,29 +543,54 @@ app.get('/viewPublishedSheets', function (req, res) {
           next(err)
           return
         }
-        const startDate = moment(req.body.startDate)
-        const endDate = moment(req.body.endDate)
+
+//Now, it is time to find all the dates that are part of the recurrance.
+//The creator has provided the date range when they submitted the form so we know the starting date and ending date.
+
+        const startDate = moment(req.body.startDate)//Ex. May 1
+        const endDate = moment(req.body.endDate)//Ex. May 31
+
+//We create an array to store all the dates in our recurrance.
+
         let recurringDatesArray = []
+
+//We create an array to store all the documents we will save to MongoDB. 
+
         let documentsToLoad = []
 
-        let slot = moment(startDate).isoWeekday(req.body.recurringDay);//ex. recurringDay === 'monday'
+//We know what week day they would like the activity to recur on it. //ex. recurringDay === 'monday'
+//We need to find all the mondays in provided date range. In this case, it would be all the Mondays in May.
+//We find the first date in our recurrance by finding the closest Monday to our start date. 
+        let slot = moment(startDate).isoWeekday(req.body.recurringDay); // current date we are working with: 5/3/2021
+
+
+ 
+//Edge case: When we do this, we could run into a problem in which the closest Monday is not in our date range. To address this potential case, we can create a conditional where if the closest Monday is before the start date, then we simply add 7 days to it --which will result in the first monday in our recurrance. 
 
         if (slot.isBefore(startDate) === true) {
           slot.add(7, 'days')
         }
+//Store the date into our array. 
 
-        recurringDatesArray.push(slot.format("YYYY-MM-DD"))
+        recurringDatesArray.push(slot.format("YYYY-MM-DD")) //[5/3/2021]
 
-        console.log(slot)
-        slot.add(7, 'days')
+//Add another 7 days 
+
+        slot.add(7, 'days') //current date that we are working with:  5/10/2021
+
+//While the current date is before the end date, we will push the current date to the array, then add 7 days.
 
         while (slot.isBefore(endDate)) {
 
           recurringDatesArray.push(slot.format("YYYY-MM-DD"))
           slot.add(7, 'days')
         }
-        console.log('HELLO')
-        console.log(recurringDatesArray)
+
+//The loop will finish running once we have all the dates in the recurrance and the those dates are pushed to our recurringDatesArray. 
+
+//Next, we will operate on each date by using a forEach loop. For each date, we want it to be associated with the other data that the creator provided us such as the start/end time of the activity, the activity description, and number of volunteers. We are doing this because for each date we will add a document to the collection in our database. We will use this collection to render the time slots on the client-side. 
+
+//Then, we push these new objects that we have created to an array named 'documentsToLoad.'
 
         recurringDatesArray.forEach(date => documentsToLoad.push(
 
@@ -585,19 +608,18 @@ app.get('/viewPublishedSheets', function (req, res) {
           }
         ))
 
+//We insert the objects in the array to a collection in our database. In the database, it will be saved as documents. 
+
         db.collection('timeSlots').insertMany(documentsToLoad, (error) => {
 
           if (error) {
             next(error)
             return
           }
+//Finally, we redirect the page so that it will refresh and our EJS file can render our updated content. 
 
-          console.log('saved to database')
           res.redirect('/addTimeSlots?' + 'id=' + ObjectId(result.ops[0].eventId))
         })
-
-        console.log(result)
-
 
 
       })
