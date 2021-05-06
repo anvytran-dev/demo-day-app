@@ -6,7 +6,7 @@ Inspired by my volunteer work with a Boston-based, food rescue organization --Th
 
 Link to Project: https://the-sign-up-cube.herokuapp.com/
 
-![Project Image](/img/sign-up-cube.png)
+![Project Image](img/sign-up-cube.png)
 
 
 ### How It's Made:
